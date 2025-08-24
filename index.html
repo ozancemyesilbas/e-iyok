@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eşikyok Grup</title>
+    <title>Eşikyok Grup</title>
+    <link rel="icon" href="assets/image/logo.png" type="image/png">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+
+</head>
+
+<body>
+    <!--NAVBAR-->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <a href="index.html">
+                    <img src="assets/image/logo.png" alt="Logo">
+                </a>
+            </div>
+
+            <button class="navbar-toggle" aria-label="Menu">☰</button>
+
+            <ul class="navbar-menu">
+                <li class="dropdown">
+                    <a href="#hakkımızda">Hakkımızda</a>
+                  
+                </li>
+
+
+
+                <li class="dropdown">
+                    <a href="#diğer">Hizmetlerimiz</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#sigorta">Eşiyok Sigorta</a></li>
+                        <li><a href="#sat">Eşiyok Hızlı Sat</a></li>
+                        <li><a href="#kiralama">Eşiyok Kiralama</a></li>
+                        <li><a href="#servis">Eşiyok Servis</a></li>
+                        
+                    </ul>
+                </li>
+
+
+
+                <li class="dropdown">
+                    <a href="#fırsat">Fırsatlarımız</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#tenax">Tenax</a></li>
+                        <li><a href="#swm">SWM</a></li>
+                        <li><a href="#rainwol">Rainwoll</a></li>
+                        <li><a href="#ikinciel">Eşiyok Grup(2. El)</a></li>
+                        
+                
+                    </ul>
+                </li>
+                <li><a href="#iletişim">İletişim</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+
+
+<!--BANNER-->
+<div class="banner-container">
+    <div class="slides">
+        <!-- Slide 1 -->
+        <div class="slide">
+            <img src="assets/image/tenaxbc.png" alt="Banner Resim 1" class="slide-img">
+            <div class="slide-content">
+                <h2 class="slide-title">Birinci Başlık</h2>
+                <p class="slide-description">Buraya birinci banner için açıklama metnini yazabiliriz. Banner
+                    metinleri bu alanda görünecektir.</p>
+                <a href="#" class="slide-button">Daha Fazla</a>
+            </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide">
+            <img src="assets/image/swmbc.png" alt="Banner Resim 2" class="slide-img">
+            <div class="slide-content">
+                <h2 class="slide-title">İkinci Başlık</h2>
+                <p class="slide-description">Buraya ikinci banner için açıklama metnini yazabiliriz. Banner metinleri
+                    bu alanda görünecektir.</p>
+                <a href="#" class="slide-button">İncele</a>
+            </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide">
+            <img src="assets/image/3.png" alt="Banner Resim 3" class="slide-img">
+            <div class="slide-content">
+                <h2 class="slide-title">Üçüncü Başlık</h2>
+                <p class="slide-description">Buraya üçüncü banner için açıklama metnini yazabiliriz. Banner metinleri
+                    bu alanda görünecektir.</p>
+                <a href="#" class="slide-button">Keşfet</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigasyon okları -->
+    <div class="arrow arrow-left">&#10094;</div>
+    <div class="arrow arrow-right">&#10095;</div>
+
+    <!-- Navigasyon noktaları -->
+    <div class="banner-navigation">
+        <div class="nav-dot active" data-slide="0"></div>
+        <div class="nav-dot" data-slide="1"></div>
+        <div class="nav-dot" data-slide="2"></div>
+    </div>
+</div>
+
+
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+
+
+
+<h2 id="fırsat" style="text-align:center; font-size:32px; font-weight:bold; margin-bottom:20px;">Sıfır Araçlar</h2>
+<div  class="container">
+    
+    <div id="tenax" class="box">
+        <img src="assets/image/tenaxbc.png" alt="Background 1" class="bg">
+        <img src="assets/image/tenaxbeyaz.png" alt="Logo" class="logo">
+    </div>
+    <div id="rainwol" class="box">
+        <img src="assets/image/Rainwol.jpg" alt="Background 2" class="bg">
+        <img src="assets/image/rainwoll-logo.png" alt="Logo" class="logo">
+    </div>
+    <div id="swm" class="box">
+        <img src="assets/image/SWM.jpg" alt="Background 3" class="bg">
+        <img src="assets/image/swm.png" alt="Logo" class="logo">
+    </div>
+</div>
+
+
+
+<!--kutucuklar css-->
+<style>
+
+
+
+.logo-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    font-size: 40px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}
+    .container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .box {
+        position: relative;
+        width: 1200px;
+        height: 200px;
+        border-radius: 10px;
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    /* Arka plan resmi */
+    .box img.bg {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.5s ease;
+    }
+
+   /* Yarı saydam siyah overlay */
+.box::after {
+    content: "";
+    position: absolute;
+    top: 0; /* Başlangıçta görünür */
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.448);
+    z-index: 1;
+    transition: top 0.5s ease;
+}
+
+    /* Ortadaki logo */
+    .logo {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+        width: 230px;
+        height: auto;
+        background-color: #b9c0c700;
+    }
+
+    /* Hover efektleri */
+    .box:hover img.bg {
+        transform: scale(1.1);
+        /* Resmi biraz büyüt */
+    }
+
+/* Hover sırasında overlay yukarı kayar ve kaybolur */
+.box:hover::after {
+    top: -100%; /* Yukarıya kayarak gözükmez olur */
+}
+
+
+
+/* Responsive mobil ve tablet için */
+@media (max-width: 1200px) {
+    .box {
+        width: 100%; /* Ekrana sığacak şekilde küçül */
+        height: 180px; /* Yüksekliği biraz küçült */
+    }
+
+    .logo {
+        width: 200px; /* Logo boyutu küçülür */
+    }
+
+    .logo-text {
+        font-size: 32px; /* Yazı boyutu küçülür */
+    }
+}
+
+@media (max-width: 768px) {
+    .box {
+        width: 100%; /* Ekrana tam uyumlu */
+        height: 150px; /* Mobilde daha küçük kutu */
+    }
+
+    .logo {
+        width: 150px; /* Mobilde logo küçülür */
+    }
+
+    .logo-text {
+        font-size: 24px; /* Mobilde yazı küçülür */
+    }
+}
+
+@media (max-width: 480px) {
+    .box {
+        height: 120px; /* Küçük telefonlar için daha da küçült */
+    }
+
+    .logo {
+        width: 120px;
+    }
+
+    .logo-text {
+        font-size: 18px;
+    }
+}
+
+</style>
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+<h2 id="ikinciel" style="text-align:center; font-size:32px; font-weight:bold; margin-bottom:20px;">İkinci El Araçlar</h2>
+<div  class="container">
+
+    <div class="box">
+        <img src="assets/image/merco.png" alt="Background 1" class="bg">
+        <div class="logo-text">Eşiyok Grup</div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+<h2 id="diğer" class="vehicle-section-title">Hizmetlerimiz</h2>
+
+<div class="vehicle-grid">
+    <div id="sigorta" class="vehicle-card">
+        <img src="assets/image/Sigorta.jpg" alt="Background 1" class="vehicle-bg">
+        <div class="vehicle-logo-text">Eşiyok Sigorta</div>
+    </div>
+    <div id="sat" class="vehicle-card">
+        <img src="assets/image/sat.jpg" alt="Background 2" class="vehicle-bg">
+        <div class="vehicle-logo-text">Eşiyok Hızlı Sat</div>
+    </div>
+    <div id="kiralama" class="vehicle-card">
+        <img src="assets/image/kiralama.jpg" alt="Background 3" class="vehicle-bg">
+        <div class="vehicle-logo-text">Eşiyok Kiralama</div>
+    </div>
+    <div id="servis" class="vehicle-card">
+        <img src="assets/image/servis.jpg" alt="Background 4" class="vehicle-bg">
+        <div class="vehicle-logo-text">Servis</div>
+    </div>
+</div>
+
+<style>
+/* Başlık */
+.vehicle-section-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Grid düzeni */
+.vehicle-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Desktop ve tablet için 2 sütun */
+    gap: 15px;
+    max-width: 1000px; /* Kutuların maksimum genişliği */
+    margin: 0 auto;
+}
+
+/* Tek bir kutu */
+.vehicle-card {
+    position: relative;
+    width: 100%;
+    padding-top: 90%; /* Kare oranını ayarlar */
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+/* Arka plan resmi */
+.vehicle-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+/* Overlay efekti */
+.vehicle-card::after {
+    content: "";
+    position: absolute;
+    top: 0; /* Başlangıçta görünür */
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.448);
+    z-index: 1;
+    transition: top 0.5s ease;
+}
+
+/* Logo veya yazı kutu içi */
+.vehicle-logo-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}
+
+/* Mevcut logolar */
+.vehicle-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    width: 200px;
+    height: auto;
+}
+
+/* Hover efektleri */
+.vehicle-card:hover .vehicle-bg {
+    transform: scale(1.1);
+}
+
+.vehicle-card:hover::after {
+    top: -100%;
+}
+
+/* Responsive: tablet ve mobil */
+@media (max-width: 1200px) {
+    .vehicle-card {
+        padding-top: 80%; /* Kutuyu biraz küçült */
+    }
+    .vehicle-logo {
+        width: 180px;
+    }
+    .vehicle-logo-text {
+        font-size: 26px;
+    }
+}
+
+@media (max-width: 768px) {
+  .vehicle-grid {
+    grid-template-columns: 1fr; /* Tek sütun */
+    max-width: 90%;             /* Ekrana göre %90 genişlik */
+    margin: 0 auto;             /* Ortalamak için otomatik yan boşluk */
+    gap: 10px;                  /* Mobilde boşluğu biraz azalt */
+    padding: 0 10px;            /* Kenarlarda küçük boşluk */
+    box-sizing: border-box;      /* Kenarlık dahil genişlik */
+}
+
+    .vehicle-card {
+        padding-top: 75%;          /* Kare oranı korunur */
+    }
+    .vehicle-logo {
+        width: 150px;
+    }
+    .vehicle-logo-text {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 480px) {
+    .vehicle-card {
+        padding-top: 70%;
+    }
+    .vehicle-logo {
+        width: 120px;
+    }
+    .vehicle-logo-text {
+        font-size: 18px;
+    }
+}
+
+
+
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+<!--HAKKIMIZDA-->
+<section id="hakkımızda" class="about-us">
+    <div class="container">
+        <div class="about-content">
+            <div class="about-image animate">
+                <img src="assets/image/logo.png" alt="IT-Beratung in Liestal" class="responsive-img">
+            </div>
+            <div class="about-text animate">
+                <h2>Hakkımızda</h2>
+                <p>---------------------------------------</p>--
+                <p>---------------------------------------------</p>
+                <p>-------------------------------------------</p>
+                <p>---------------------------------------------------------</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+  
+
+    
+
+
+    
+
+
+<!--FOOTER-->
+    <section id="iletişim" class="contact-section">
+        <h2 class="section-title">İletişim</h2>
+        <p class="section-description">
+            Gerekli bilgiler veya sorularınız mı var? Bize istediğiniz zaman ulaşabilirsiniz.
+        </p>
+    
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="info-box">
+                    <h3>Adres</h3>
+                    <p>----------------------------</p>
+                </div>
+                <div class="info-box">
+                    <h3>Bizi Arayın</h3>
+                    <p>-------------------</p>
+                </div>
+                <div class="info-box">
+                    <h3>Çalışma Saatleri</h3>
+                    <p>Açık ⋅ 18:00'da kapanır</p>
+                </div>
+                <div class="map-box">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12039.83296822173!2d28.855734110822085!3d41.03382297709924!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caba5d8711a2d9%3A0xccc13d5c43e5b3f5!2zxLBzdGFuYnVsLCBCYcSfxLFrbGFy!5e0!3m2!1str!2str!4v1724080255792!5m2!1str!2str"
+                    width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy">
+                </iframe>
+                </div>
+            </div>
+    
+            <div class="contact-form">
+                <form>
+                    <div class="form-row">
+                        <input type="text" placeholder="Adınız" required>
+                        <input type="email" placeholder="E-posta Adresiniz" required>
+                    </div>
+                    <input type="text" placeholder="Konu" required>
+                    <textarea placeholder="Mesajınız" required></textarea>
+                    <button type="submit">Mesajı Gönder</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+<div id="whatsapp-chat">
+    <a href="https://wa.me/41619233400" target="_blank">
+        <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp" class="whatsapp-icon" />
+    </a>
+    <div class="chat-text">Sizlere nasıl yardımcı olabiliriz?</div>
+</div>
+
+<style>
+    #whatsapp-chat {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        z-index: 9999;
+    }
+
+    .whatsapp-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+    }
+
+    .chat-text {
+        position: absolute;
+        top: 50%;
+        left: 70px;
+        transform: translateY(-50%) translateX(-10px);
+        background-color: #25d366;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 25px;
+        white-space: nowrap;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.5s, transform 0.5s;
+    }
+
+    /* Hover ile göster */
+    #whatsapp-chat:hover .chat-text {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0);
+        pointer-events: auto;
+    }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- form-->
+<!-- Modal / Popup -->
+<div class="popup-modal" id="popupModal" aria-hidden="true">
+    <div class="popup-backdrop"></div>
+
+    <div class="popup-dialog" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+        <button type="button" class="popup-close" aria-label="Kapat">×</button>
+
+        <h3 id="popupTitle" class="popup-title">Bilgi Formu</h3>
+        <p id="popupSubtitle" class="popup-subtitle"></p>
+
+        <!-- 🔹 Artık PHP’ye post edilecek -->
+        <form id="dynamicForm" action="mail.php" method="post">
+            <div id="formFields"></div>
+
+            <div class="popup-actions">
+                <button type="submit" class="btn-primary">Gönder</button>
+                <button type="button" class="btn-ghost" id="btnCancel">Vazgeç</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    (() => {
+        const FORM_TEMPLATES = {
+            sigorta: [
+                { name: 'ad', label: 'Ad', type: 'text', placeholder: 'Ad Soyad', required: true },
+                { name: 'tckn', label: 'TCKN', type: 'text', placeholder: '11 haneli TCKN', required: true, pattern: '^\\d{11}$', maxlength: 11 },
+                { name: 'tarih', label: 'Tarih', type: 'date', required: true },
+                { name: 'eposta', label: 'E-posta', type: 'email', placeholder: 'ornek@domain.com', required: true }
+            ],
+            sat: [
+                { name: 'ad', label: 'Ad', type: 'text', placeholder: 'Ad Soyad', required: true },
+                { name: 'tckn', label: 'TCKN', type: 'text', placeholder: '11 haneli TCKN', required: true, pattern: '^\\d{11}$', maxlength: 11 },
+                { name: 'tarih', label: 'Tarih', type: 'date', required: true },
+                { name: 'eposta', label: 'E-posta', type: 'email', placeholder: 'ornek@domain.com', required: true }
+            ],
+            kiralama: [
+                { name: 'ad', label: 'Ad', type: 'text', placeholder: 'Ad Soyad', required: true },
+                { name: 'tckn', label: 'TCKN', type: 'text', placeholder: '11 haneli TCKN', required: true, pattern: '^\\d{11}$', maxlength: 11 },
+                { name: 'tarih', label: 'Tarih', type: 'date', required: true },
+                { name: 'eposta', label: 'E-posta', type: 'email', placeholder: 'ornek@domain.com', required: true }
+            ],
+            servis: [
+                { name: 'ad', label: 'Ad', type: 'text', placeholder: 'Ad Soyad', required: true },
+                { name: 'tckn', label: 'TCKN', type: 'text', placeholder: '11 haneli TCKN', required: true, pattern: '^\\d{11}$', maxlength: 11 },
+                { name: 'tarih', label: 'Tarih', type: 'date', required: true },
+                { name: 'eposta', label: 'E-posta', type: 'email', placeholder: 'ornek@domain.com', required: true }
+            ]
+        };
+
+        const modal = document.getElementById('popupModal');
+        const backdrop = modal.querySelector('.popup-backdrop');
+        const titleEl = document.getElementById('popupTitle');
+        const subEl = document.getElementById('popupSubtitle');
+        const closeEl = modal.querySelector('.popup-close');
+        const cancelEl = document.getElementById('btnCancel');
+        const form = document.getElementById('dynamicForm');
+        const fieldsWrap = document.getElementById('formFields');
+
+        document.querySelectorAll('.vehicle-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const id = card.id || 'sigorta';
+                const titleText = card.querySelector('.vehicle-logo-text')?.textContent?.trim() || 'Bilgi Formu';
+                titleEl.textContent = 'Bilgi Formu';
+                subEl.textContent = `Seçilen hizmet: ${titleText}`;
+                buildFields(FORM_TEMPLATES[id] || FORM_TEMPLATES.sigorta, id);
+                openModal();
+            });
+        });
+
+        function buildFields(fields, sourceId) {
+            fieldsWrap.innerHTML = '';
+            const hidden = document.createElement('input');
+            hidden.type = 'hidden';
+            hidden.name = 'kaynak';
+            hidden.value = sourceId;
+            fieldsWrap.appendChild(hidden);
+
+            fields.forEach(f => {
+                const wrap = document.createElement('div');
+                wrap.className = 'form-field';
+
+                const label = document.createElement('label');
+                label.textContent = f.label;
+                label.setAttribute('for', `field_${f.name}`);
+
+                const input = document.createElement('input');
+                input.id = `field_${f.name}`;
+                input.name = f.name;
+                input.type = f.type || 'text';
+                if (f.placeholder) input.placeholder = f.placeholder;
+                if (f.required) input.required = true;
+                if (f.pattern) input.pattern = f.pattern;
+                if (f.maxlength) input.maxLength = f.maxlength;
+                if (f.type === 'text' && f.name === 'tckn') input.inputMode = 'numeric';
+
+                wrap.appendChild(label);
+                wrap.appendChild(input);
+                fieldsWrap.appendChild(wrap);
+            });
+        }
+
+        function openModal() {
+            modal.classList.add('is-open');
+            modal.setAttribute('aria-hidden', 'false');
+            setTimeout(() => form.querySelector('input:not([type="hidden"])')?.focus(), 0);
+        }
+        function closeModal() {
+            modal.classList.remove('is-open');
+            modal.setAttribute('aria-hidden', 'true');
+            form.reset();
+        }
+
+        closeEl.addEventListener('click', closeModal);
+        cancelEl.addEventListener('click', closeModal);
+        backdrop.addEventListener('click', closeModal);
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+        });
+    })();
+</script>
+
+
+<style>
+    /* ==== Modal temel stiller ==== */
+    .popup-modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        align-items: center;
+        justify-content: center;
+        font-family: inherit;
+    }
+
+    .popup-modal.is-open {
+        display: flex;
+    }
+
+    .popup-backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, .55);
+        backdrop-filter: blur(2px);
+    }
+
+    .popup-dialog {
+        position: relative;
+        z-index: 1;
+        width: min(520px, 92vw);
+        background: #fff;
+        color: #111;
+        border-radius: 14px;
+        padding: 18px 18px 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+    }
+
+    .popup-close {
+        position: absolute;
+        top: 8px;
+        right: 10px;
+        width: 36px;
+        height: 36px;
+        border: 0;
+        border-radius: 8px;
+        background: #f1f1f1;
+        font-size: 22px;
+        cursor: pointer;
+    }
+
+    .popup-title {
+        margin: 6px 0 2px;
+        font-size: 20px;
+        font-weight: 700;
+    }
+
+    .popup-subtitle {
+        margin: 0 0 12px;
+        font-size: 14px;
+        color: #666;
+    }
+
+    /* ==== Form alanları - net etiketli ==== */
+    .form-field {
+        display: grid;
+        gap: 6px;
+        margin-bottom: 12px;
+    }
+
+    .form-field label {
+        font-size: 13px;
+        color: #333;
+        font-weight: 600;
+    }
+
+    .form-field input {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid #cfcfcf;
+        background: #fff;
+        color: #111;
+        outline: none;
+    }
+
+    .form-field input::placeholder {
+        color: #9a9a9a;
+    }
+
+    .form-field input:focus {
+        border-color: #5c8df6;
+        box-shadow: 0 0 0 3px rgba(92, 141, 246, .15);
+    }
+
+    .popup-actions {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        margin-top: 6px;
+    }
+
+    .btn-primary {
+        padding: 10px 14px;
+        border-radius: 10px;
+        border: 1px solid #0d6efd;
+        background: #0d6efd;
+        color: #fff;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    .btn-primary:hover {
+        opacity: .95;
+    }
+
+    .btn-ghost {
+        padding: 10px 14px;
+        border-radius: 10px;
+        border: 1px solid #d0d0d0;
+        background: transparent;
+        color: #333;
+        cursor: pointer;
+    }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="assets/js/script.js"></script>
+</body>
+
+</html>
