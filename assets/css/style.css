@@ -370,15 +370,11 @@ body {
 
 
 
+/* ===============================
+   HAKKIMIZDA – TAM CSS (buton sağ altta)
+   =============================== */
 
-
-
-
-
-
-
-
-
+/* Bölüm arkaplanı */
 .about-us {
     padding: 80px 0;
     background: linear-gradient(135deg, #15171a76 0%, #03030361 100%);
@@ -386,10 +382,7 @@ body {
     overflow: hidden;
 }
 
-
-
-
-
+/* Konteyner */
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -398,39 +391,42 @@ body {
     z-index: 1;
 }
 
+/* İki sütunlu içerik */
 .about-content {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    gap: 40px;
+    align-items: flex-start;
+    gap: 28px;
 }
 
+/* Görsel */
 .about-image {
-    flex: 1;
+    flex: 0 1 420px;
     min-width: 300px;
     position: relative;
 }
 
 .about-image::before {
-    content: '';
+    content: "";
     position: absolute;
-    width: 100%;
-    height: 100%;
-    border: 3px solid #000000;
+    inset: 15px 0 0 15px;
+    width: calc(100% - 15px);
+    height: calc(100% - 15px);
+    border: 3px solid rgba(255, 255, 255, 0.12);
     border-radius: 10px;
-    top: 15px;
-    left: 15px;
     z-index: -1;
     transition: all 0.3s ease;
 }
 
 .about-image:hover::before {
-    top: 10px;
-    left: 10px;
+    inset: 10px 0 0 10px;
 }
 
 .responsive-img {
     width: 100%;
+    max-width: 88%;
+    margin: 0 auto;
+    display: block;
     height: auto;
     border-radius: 10px;
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
@@ -441,42 +437,56 @@ body {
     transform: translateY(-5px);
 }
 
+/* Metin paneli */
 .about-text {
     flex: 1;
     min-width: 300px;
+    background: rgba(10, 12, 14, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    padding: 22px;
+    padding-bottom: 56px;
+    /* buton için yer */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    position: relative;
+    /* buton absolute için referans */
 }
 
+/* Başlık */
 .about-text h2 {
     font-size: 2.5rem;
-    color: #2c3e50;
-    margin-bottom: 25px;
+    color: #e7eefc;
+    margin: 0 0 25px;
     position: relative;
     padding-bottom: 15px;
+    letter-spacing: 0.2px;
 }
 
 .about-text h2::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 0;
     left: 0;
     width: 60px;
     height: 4px;
-  
     border-radius: 2px;
+    background: linear-gradient(90deg, #5aa9ff, #22d3ee);
 }
 
+/* Paragraflar */
 .about-text p {
     font-size: 1.1rem;
-    line-height: 1.8;
-    color: #555;
-    margin-bottom: 20px;
+    line-height: 1.85;
+    color: rgba(235, 240, 247, 0.85);
+    margin: 0 0 20px;
     text-align: justify;
 }
 
+/* Animasyon yardımcıları */
 .animate {
     opacity: 0;
     transform: translateY(30px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
+    transition: opacity .8s ease, transform .8s ease;
 }
 
 .animate.active {
@@ -484,11 +494,114 @@ body {
     transform: translateY(0);
 }
 
-/* Responsive Tasarım */
+/* Başlangıçta küçük görünüm */
+.about-text.collapsed {
+    overflow: hidden;
+    max-height: 250px;
+}
+
+/* Devamı var efekti – butonun üstünde biter */
+.about-text.collapsed::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 56px;
+    /* butonun hemen üstünde */
+    height: 80px;
+    pointer-events: none;
+    background: linear-gradient(to bottom, rgba(10, 12, 14, 0) 0%, rgba(10, 12, 14, .55) 100%);
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+/* Açıldığında */
+.about-text.expanded {
+    overflow: visible;
+}
+
+/* Devamını Oku butonu — SAĞ ALTA sabit */
+.read-more-btn {
+    position: absolute;
+    right: 12px;
+    /* ← sağ boşluk */
+    bottom: 5px;
+    /* ← alt boşluk */
+    left: auto;
+    transform: none;
+    z-index: 2;
+    display: inline-block;
+    padding: 8px 18px;
+    background: #0d6efd;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(13, 110, 253, .35);
+    transition: filter .2s ease, background .2s ease;
+}
+
+.read-more-btn:hover {
+    filter: brightness(.95);
+}
+
+/* Misyon & Vizyon kartları */
+.mv-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.mv-card {
+    background: rgba(10, 12, 14, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    padding: 18px 20px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+}
+
+.mv-card h3 {
+    margin: 0 0 10px;
+    font-size: 1.35rem;
+    color: #e7eefc;
+}
+
+.mv-card p {
+    margin: 0;
+    color: rgba(235, 240, 247, 0.85);
+    line-height: 1.75;
+    text-align: justify;
+}
+
+.mv-misyon {
+    border-left: 4px solid #3b82f6;
+}
+
+.mv-vizyon {
+    border-left: 4px solid #22c55e;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .about-image {
+        flex-basis: 360px;
+    }
+
+    .responsive-img {
+        max-width: 92%;
+    }
+}
+
 @media (max-width: 768px) {
     .about-content {
         flex-direction: column;
         gap: 30px;
+    }
+
+    .about-text {
+        padding: 18px;
+        padding-bottom: 56px;
     }
 
     .about-text h2 {
@@ -499,9 +612,16 @@ body {
         font-size: 1rem;
     }
 
+    .about-text.collapsed {
+        max-height: 200px;
+    }
+
     .about-image::before {
-        top: 10px;
-        left: 10px;
+        inset: 10px 0 0 10px;
+    }
+
+    .mv-grid {
+        grid-template-columns: 1fr;
     }
 }
 

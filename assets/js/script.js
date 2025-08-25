@@ -95,3 +95,61 @@ document.addEventListener('DOMContentLoaded', function() {
     // Otomatik geçişi başlat
     startSlideShow();
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const box  = document.getElementById("aboutText");
+  const btn  = document.getElementById("readMoreBtn");
+  if (!box || !btn) return;
+
+  // Başlangıç
+  box.classList.add("collapsed");
+  btn.textContent = "Devamını Oku";
+
+  function animateHeight(expand) {
+    const start = box.getBoundingClientRect().height;
+    box.style.transition = "none";
+    box.style.height = start + "px";
+
+    requestAnimationFrame(() => {
+      if (expand) {
+        box.classList.add("expanded");
+        box.classList.remove("collapsed");
+      } else {
+        box.classList.add("collapsed");
+        box.classList.remove("expanded");
+      }
+
+      const target = box.scrollHeight;
+      box.style.transition = "height 1s ease"; // slow animasyon
+      box.style.height = target + "px";
+
+      box.addEventListener("transitionend", function tidy(e){
+        if (e.propertyName === "height") {
+          box.style.height = "";
+          box.style.transition = "";
+          box.removeEventListener("transitionend", tidy);
+        }
+      });
+    });
+  }
+
+  btn.addEventListener("click", () => {
+    const expand = box.classList.contains("collapsed");
+    animateHeight(expand);
+    btn.textContent = expand ? "Daha Az Göster" : "Devamını Oku";
+  });
+});
