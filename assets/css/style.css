@@ -7,16 +7,9 @@
 
 body {
     font-family: 'Segoe UI', sans-serif;
-    background-color: #2f2f2f;
-    /* antrasit fallback */
+    background-color: #000;
+    /* siyah */
     color: #fff;
-
-    background-image: url("../image/back.jpg");
-    background-position: top center;
-    background-repeat: repeat-y;
-    /* sadece dikey yönde tekrar et */
-    background-size: contain;
-    /* genişliğe göre oturt */
 }
 
 
@@ -41,27 +34,21 @@ body {
 
 
 
-
-
+/* ====== NAVBAR (genel) ====== */
 .navbar {
     position: fixed;
     top: 0;
+    left: 0;
     width: 100%;
     background-color: rgb(22, 22, 22);
     box-shadow: none;
     z-index: 1000;
-    transition: background-color 0.4s ease, box-shadow 0.4s ease;
+    /* scroll rengi vs. yok */
 }
-
-.navbar.scrolled {
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
 
 .navbar-container {
     max-width: 1200px;
-    margin: auto;
+    margin: 0 auto;
     padding: 10px 20px;
     display: flex;
     justify-content: space-between;
@@ -70,10 +57,10 @@ body {
 
 .navbar-logo img {
     height: 65px;
-    transition: height 0.3s;
+    transition: height .3s;
 }
 
-
+/* Menü – desktop varsayılan */
 .navbar-menu {
     list-style: none;
     display: flex;
@@ -84,33 +71,62 @@ body {
 
 .navbar-menu li a {
     text-decoration: none;
-    color: #ffffff;
-    
+    color: #fff;
     font-weight: 500;
-    transition: color 0.3s ease;
+    transition: color .2s ease;
     padding: 5px 10px;
-}
-
-.navbar.scrolled .navbar-menu li a {
-    color: #000000;
-    
+    display: inline-block;
+    font-family: "Inter", "Roboto", Arial, sans-serif;
+    /* sadece font eklendi */
 }
 
 .navbar-menu li a:hover {
     color: #fbca80;
 }
 
+/* Dropdown (desktop) */
+.dropdown {
+    position: relative;
+}
 
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 220px;
+    background: #fff;
+    color: #111;
+    border-radius: 8px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, .12);
+    padding: 10px 0;
+    margin-top: 8px;
+    display: none;
+    z-index: 1001;
+}
+
+.dropdown-menu li a {
+    color: #111;
+    padding: 10px 14px;
+    width: 100%;
+    display: block;
+}
+
+.dropdown:hover>.dropdown-menu {
+    display: block;
+}
+
+/* Hamburger */
 .navbar-toggle {
     display: none;
     cursor: pointer;
     background: none;
     border: none;
     font-size: 24px;
-    color: #000;
+    color: #fff;
     padding: 10px;
 }
 
+/* ====== MOBİL ====== */
 @media (max-width: 768px) {
     .navbar-container {
         padding: 10px 15px;
@@ -120,6 +136,7 @@ body {
         height: 50px;
     }
 
+    /* Yan kayan menü */
     .navbar-menu {
         position: fixed;
         top: 80px;
@@ -127,33 +144,77 @@ body {
         width: 80%;
         max-width: 300px;
         height: calc(100vh - 80px);
-        background-color: #ffffff;
+        background-color: #000;
+        /* siyah */
         flex-direction: column;
         align-items: flex-start;
         padding: 30px 20px;
         gap: 25px;
-        transition: left 0.3s ease;
-        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        transition: left .3s ease;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, .1);
+        z-index: 1002;
+        -webkit-overflow-scrolling: touch;
+        overflow-y: auto;
     }
 
     .navbar-menu.active {
         left: 0;
     }
 
+    /* Mobil linkler beyaz */
     .navbar-menu li a {
+        color: #fff;
+        /* siyah zeminde görünür */
         font-size: 18px;
         padding: 8px 0;
-        display: block;
         width: 100%;
+        display: block;
+    }
+
+    .navbar-menu li a:hover {
+        color: #fbca80;
     }
 
     .navbar-toggle {
         display: block;
     }
+
+    /* Dropdown – mobil akordeon görünümü (kapalı başlar) */
+    .dropdown>.dropdown-menu {
+        position: static;
+        box-shadow: none;
+        border-radius: 0;
+        padding: 6px 0 0 12px;
+        margin: 0;
+        display: none;
+        background: transparent;
+    }
+
+    .dropdown.open>.dropdown-menu {
+        display: block;
+    }
 }
 
+/* Backdrop (menü açıkken karartma) – İSTERSEN kullan */
+.backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .35);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s;
+    z-index: 1001;
+}
 
+body.menu-open .backdrop {
+    opacity: 1;
+    pointer-events: auto;
+}
 
+/* Menü açıkken sayfa kaymasın */
+body.menu-open {
+    overflow: hidden;
+}
 
 
 
@@ -367,241 +428,110 @@ body {
 
 
 
-
-
-
-/* ===============================
-   HAKKIMIZDA – TAM CSS (buton sağ altta)
-   =============================== */
-
-/* Bölüm arkaplanı */
-.about-us {
-    padding: 80px 0;
-    background: linear-gradient(135deg, #15171a76 0%, #03030361 100%);
-    position: relative;
-    overflow: hidden;
+/* Genel tipografi */
+:root {
+    --container-max: 1200px;
 }
 
-/* Konteyner */
-.container {
-    max-width: 1200px;
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Inter", "Roboto", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+    color: #e9eef6;
+}
+
+/* Bölüm */
+.about {
+    padding: 80px 0;
+    background: linear-gradient(135deg, rgba(21, 23, 26, .46) 0%, rgba(3, 3, 3, .38) 100%);
+}
+
+.about .container {
+    max-width: var(--container-max);
     margin: 0 auto;
     padding: 0 20px;
-    position: relative;
-    z-index: 1;
 }
 
-/* İki sütunlu içerik */
-.about-content {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    gap: 28px;
-}
-
-/* Görsel */
-.about-image {
-    flex: 0 1 420px;
-    min-width: 300px;
-    position: relative;
-}
-
-.about-image::before {
-    content: "";
-    position: absolute;
-    inset: 15px 0 0 15px;
-    width: calc(100% - 15px);
-    height: calc(100% - 15px);
-    border: 3px solid rgba(255, 255, 255, 0.12);
-    border-radius: 10px;
-    z-index: -1;
-    transition: all 0.3s ease;
-}
-
-.about-image:hover::before {
-    inset: 10px 0 0 10px;
-}
-
-.responsive-img {
-    width: 100%;
-    max-width: 88%;
-    margin: 0 auto;
-    display: block;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-    transition: transform 0.3s ease;
-}
-
-.about-image:hover .responsive-img {
-    transform: translateY(-5px);
-}
-
-/* Metin paneli */
-.about-text {
-    flex: 1;
-    min-width: 300px;
-    background: rgba(10, 12, 14, 0.55);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 12px;
-    padding: 22px;
-    padding-bottom: 56px;
-    /* buton için yer */
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
-    position: relative;
-    /* buton absolute için referans */
-}
-
-/* Başlık */
-.about-text h2 {
-    font-size: 2.5rem;
-    color: #e7eefc;
-    margin: 0 0 25px;
-    position: relative;
-    padding-bottom: 15px;
-    letter-spacing: 0.2px;
-}
-
-.about-text h2::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 60px;
-    height: 4px;
-    border-radius: 2px;
-    background: linear-gradient(90deg, #5aa9ff, #22d3ee);
-}
-
-/* Paragraflar */
-.about-text p {
-    font-size: 1.1rem;
-    line-height: 1.85;
-    color: rgba(235, 240, 247, 0.85);
-    margin: 0 0 20px;
-    text-align: justify;
-}
-
-/* Animasyon yardımcıları */
-.animate {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity .8s ease, transform .8s ease;
-}
-
-.animate.active {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Başlangıçta küçük görünüm */
-.about-text.collapsed {
-    overflow: hidden;
-    max-height: 250px;
-}
-
-/* Devamı var efekti – butonun üstünde biter */
-.about-text.collapsed::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 56px;
-    /* butonun hemen üstünde */
-    height: 80px;
-    pointer-events: none;
-    background: linear-gradient(to bottom, rgba(10, 12, 14, 0) 0%, rgba(10, 12, 14, .55) 100%);
-    border-bottom-left-radius: 12px;
-    border-bottom-right-radius: 12px;
-}
-
-/* Açıldığında */
-.about-text.expanded {
-    overflow: visible;
-}
-
-/* Devamını Oku butonu — SAĞ ALTA sabit */
-.read-more-btn {
-    position: absolute;
-    right: 12px;
-    /* ← sağ boşluk */
-    bottom: 5px;
-    /* ← alt boşluk */
-    left: auto;
-    transform: none;
-    z-index: 2;
-    display: inline-block;
-    padding: 8px 18px;
-    background: #0d6efd;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    font-weight: 700;
-    cursor: pointer;
-    box-shadow: 0 6px 16px rgba(13, 110, 253, .35);
-    transition: filter .2s ease, background .2s ease;
-}
-
-.read-more-btn:hover {
-    filter: brightness(.95);
-}
-
-/* Misyon & Vizyon kartları */
-.mv-grid {
+/* Grid: solda görsel, sağda metin */
+.about-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(260px, 1fr));
-    gap: 20px;
+    grid-template-columns: 1fr 1.15fr;
+    /* resim | metin */
+    gap: 32px;
+    align-items: start;
 }
 
-.mv-card {
-    background: rgba(10, 12, 14, 0.55);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 12px;
-    padding: 18px 20px;
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
-}
-
-.mv-card h3 {
-    margin: 0 0 10px;
-    font-size: 1.35rem;
-    color: #e7eefc;
-}
-
-.mv-card p {
+/* Görsel - desktop default */
+.about-media {
     margin: 0;
-    color: rgba(235, 240, 247, 0.85);
-    line-height: 1.75;
+}
+
+.about-media img {
+    width: 500px;
+    height: 900px;
+    display: block;
+    border-radius: 12px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, .25);
+    object-fit: cover;
+    /* oran korumak için */
+}
+
+/* Küçük ekranlarda responsive olsun */
+@media (max-width: 992px) {
+    .about-media img {
+        width: 100%;
+        height: auto;
+        max-width: 500px;
+        /* masaüstüdeki genişliği geçmesin */
+        margin: 0 auto;
+    }
+}
+/* Metin alanı (kutusuz, tam akış) */
+.about-text h2 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin: 0 0 18px;
+    letter-spacing: .2px;
+}
+
+.about-text p {
+    font-size: 1.08rem;
+    line-height: 1.85;
+    color: rgba(235, 240, 247, .9);
+    margin: 0 0 18px;
     text-align: justify;
 }
 
-.mv-misyon {
-    border-left: 4px solid #3b82f6;
+/* Misyon & Vizyon – alt alta, sade */
+.mv {
+    margin-top: 44px;
 }
 
-.mv-vizyon {
-    border-left: 4px solid #22c55e;
+.mv-block+.mv-block {
+    margin-top: 28px;
+}
+
+.mv h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 10px;
+    color: #ffffff;
+}
+
+.mv p {
+    margin: 0;
+    font-size: 1.06rem;
+    line-height: 1.8;
+    color: rgba(235, 240, 247, .9);
+    text-align: justify;
 }
 
 /* Responsive */
 @media (max-width: 992px) {
-    .about-image {
-        flex-basis: 360px;
-    }
-
-    .responsive-img {
-        max-width: 92%;
-    }
-}
-
-@media (max-width: 768px) {
-    .about-content {
-        flex-direction: column;
-        gap: 30px;
-    }
-
-    .about-text {
-        padding: 18px;
-        padding-bottom: 56px;
+    .about-grid {
+        grid-template-columns: 1fr;
     }
 
     .about-text h2 {
@@ -611,20 +541,7 @@ body {
     .about-text p {
         font-size: 1rem;
     }
-
-    .about-text.collapsed {
-        max-height: 200px;
-    }
-
-    .about-image::before {
-        inset: 10px 0 0 10px;
-    }
-
-    .mv-grid {
-        grid-template-columns: 1fr;
-    }
 }
-
 
 
 
@@ -785,98 +702,6 @@ html {
 
 
 
-
-.contact-section {
-    padding: 60px 20px;
-    text-align: center;
-}
-
-.section-title {
-    font-size: 2.5em;
-    color: #dea15c;
-}
-
-.section-description {
-    color: #555;
-    margin: 10px 0 40px;
-}
-
-.contact-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 40px;
-}
-
-.contact-info,
-.contact-form {
-    background: #fff;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    border-radius: 10px;
-    padding: 30px;
-    flex: 1;
-    max-width: 500px;
-    min-width: 300px;
-}
-
-.info-box {
-    text-align: left;
-    margin-bottom: 20px;
-}
-
-.info-box h3 {
-    color: #2c3e50;
-    margin-bottom: 5px;
-}
-
-.info-box p {
-    color: #555;
-}
-
-.map-box {
-    margin-top: 20px;
-}
-
-.contact-form form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.form-row {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-input,
-textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1em;
-}
-
-textarea {
-    height: 120px;
-    resize: vertical;
-}
-
-button {
-    background-color: #000000;
-    color: white;
-    border: none;
-    padding: 12px;
-    font-size: 1em;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-button:hover {
-    background-color: #343434;
-}
 
 
 

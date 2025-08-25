@@ -27,9 +27,26 @@
 
             <ul class="navbar-menu">
                 <li class="dropdown">
-                    <a href="#hakkımızda">Hakkımızda</a>
+                    <a href="#hakkimizda">Hakkımızda</a>
                   
                 </li>
+
+
+                    <li class="dropdown">
+                        <a href="#fırsat">Sıfır Araçlar</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#tenax">Tenax</a></li>
+                            <li><a href="#swm">SWM</a></li>
+                            <li><a href="#rainwol">Rainwoll</a></li>
+                            <li><a href="#ikinciel">Eşiyok Grup(2. El)</a></li>
+                    
+                    
+                        </ul>
+                    </li>
+
+
+
+
 
 
 
@@ -46,21 +63,75 @@
 
 
 
-                <li class="dropdown">
-                    <a href="#fırsat">Fırsatlarımız</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#tenax">Tenax</a></li>
-                        <li><a href="#swm">SWM</a></li>
-                        <li><a href="#rainwol">Rainwoll</a></li>
-                        <li><a href="#ikinciel">Eşiyok Grup(2. El)</a></li>
-                        
-                
-                    </ul>
-                </li>
+            
                 <li><a href="#iletişim">İletişim</a></li>
             </ul>
         </div>
     </nav>
+
+
+<script>
+    (function () {
+        const navbar = document.querySelector('.navbar');
+        const toggle = document.querySelector('.navbar-toggle');
+        const menu = document.querySelector('.navbar-menu');
+
+        // Scroll olduğunda navbar'a .scrolled ekle
+        function onScroll() {
+            if (window.scrollY > 10) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        }
+        onScroll();
+        window.addEventListener('scroll', onScroll);
+
+        // Hamburger aç/kapa
+        toggle.addEventListener('click', () => {
+            const isOpen = menu.classList.toggle('active');
+            toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            document.body.classList.toggle('menu-open', isOpen);
+        });
+
+        // Menüde bir linke tıklayınca menüyü kapat
+        menu.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A') {
+                menu.classList.remove('active');
+                toggle.setAttribute('aria-expanded', 'false');
+                document.body.classList.remove('menu-open');
+            }
+        });
+
+        // Ekran genişleyince (desktop’a dönünce) aktif sınıfları temizle
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                menu.classList.remove('active');
+                toggle.setAttribute('aria-expanded', 'false');
+                document.body.classList.remove('menu-open');
+            }
+        });
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -132,7 +203,7 @@
 
 
 
-<h2 id="fırsat" style="text-align:center; font-size:32px; font-weight:bold; margin-bottom:20px;">Sıfır Araçlar</h2>
+<h2 id="fırsat" style="text-align:center; font-size:32px; font-weight:bold; margin-bottom:20px; font-family:'Roboto', Arial, sans-serif;">Sıfır Araçlar</h2>
 <div  class="container">
     
     <div id="tenax" class="box">
@@ -148,11 +219,58 @@
         <img src="assets/image/swm.png" alt="Logo" class="logo">
     </div>
 </div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<h2 id="ikinciel"
+    style="text-align:center; font-size:32px; font-weight:bold; margin-bottom:20px; font-family:'Roboto', Arial, sans-serif;">
+    İkinci El Araçlar
+</h2>
 
+<div class="container secondhand">
 
+    <div class="box">
+        <img src="assets/image/merco.png" alt="Background 1" class="bg">
+        <div class="logo-text">Eşiyok Grup</div>
+    </div>
+
+</div>
 
 <!--kutucuklar css-->
 <style>
+
+
+
+
+
+
+/* Sadece ikinci el araçlar bölümü için logo yazısı */
+.secondhand .logo-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  padding: 6px 14px;
+  border-radius: 6px;
+  background: transparent; /* başta şeffaf */
+  transition: background 0.3s ease;
+}
+
+/* Hover olunca siyah arka plan gelsin */
+.secondhand .box:hover .logo-text {
+  background: rgba(0, 0, 0, 0.69);
+}
 
 
 
@@ -167,20 +285,25 @@
     color: white;
     text-align: center;
 }
-    .container {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
+ .container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;   /* kutuları ortalar */
+}
 
-    .box {
-        position: relative;
-        width: 1200px;
-        height: 200px;
-        border-radius: 10px;
-        overflow: hidden;
-        cursor: pointer;
-    }
+/* Kutular */
+.box {
+    position: relative;
+    width: 100%;           /* container genişliği kadar */
+    max-width: 1200px;     /* çok büyümesin */
+    height: 200px;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    margin: 0 auto;        /* ortalama garantisi */
+}
+
 
     /* Arka plan resmi */
     .box img.bg {
@@ -278,26 +401,10 @@
 
 
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 
 
-<h2 id="ikinciel" style="text-align:center; font-size:32px; font-weight:bold; margin-bottom:20px;">İkinci El Araçlar</h2>
-<div  class="container">
 
-    <div class="box">
-        <img src="assets/image/merco.png" alt="Background 1" class="bg">
-        <div class="logo-text">Eşiyok Grup</div>
-    </div>
 
-</div>
 
 
 
@@ -341,6 +448,32 @@
 </div>
 
 <style>
+
+
+
+.vehicle-logo-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    
+    /* Başlangıçta arka plan yok */
+    background: transparent;
+    padding: 6px 14px;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+}
+
+/* Hover olunca siyah arka plan gelsin */
+.vehicle-card:hover .vehicle-logo-text {
+    background: rgba(0, 0, 0, 0.716);
+}
+
 /* Başlık */
 .vehicle-section-title {
     text-align: center;
@@ -388,7 +521,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.448);
+    background: rgba(0, 0, 0, 0.586);
     z-index: 1;
     transition: top 0.5s ease;
 }
@@ -495,18 +628,27 @@
 <br>
 <br>
 
+<!--HAKKIMIZDA-->
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap"
+    rel="stylesheet">
 
-
-<!-- HAKKIMIZDA -->
-<section id="hakkımızda" class="about-us">
+<section id="hakkimizda" class="about">
     <div class="container">
-        <div class="about-content">
-            <div class="about-image animate">
-                <img src="assets/image/beyaz1.png" alt="Eşiyok Grup Otomotiv" class="responsive-img">
-            </div>
+        <div class="about-grid">
+            <!-- Görsel alanı (solda) -->
+            <figure class="about-media">
+                <picture>
+                    <!-- 768px ve altındaki ekranlar için -->
+                    <source srcset="assets/image/bulut.png" media="(max-width: 768px)">
+                    <!-- varsayılan (desktop) -->
+                    <img src="assets/image/bulutlu.jpg" alt="Eşiyok Grup Otomotiv">
+                </picture>
+            </figure>
 
-            <!-- DİKKAT: collapsed + id="aboutText" -->
-            <div class="about-text animate collapsed" id="aboutText">
+            <!-- Metin alanı (sağda) -->
+            <div class="about-text">
                 <h2>Hakkımızda</h2>
 
                 <p>Eşiyok Grup Otomotiv, 1993 yılından bu yana otomotiv sektöründe faaliyet gösteren köklü ve güvenilir
@@ -533,20 +675,19 @@
 
                 <p>İstanbul Pendik E-5 Karayolu üzerindeki 1000 m²’yi aşkın showroomumuzda, her zaman kaliteli,
                     güvenilir ve şeffaf hizmet anlayışıyla müşterilerimizi karşılamaktan gurur duyuyoruz.</p>
-
-                <button class="read-more-btn" id="readMoreBtn">Devamını Oku</button>
             </div>
         </div>
 
-        <!-- MISYON & VİZYON -->
-        <div class="mv-grid animate" style="margin-top:48px;">
-            <div class="mv-card mv-misyon">
+        <!-- Misyon & Vizyon (kutusuz, alt alta) -->
+        <div class="mv">
+            <div class="mv-block">
                 <h3>Misyonumuz</h3>
                 <p>Müşterilerimize en güvenilir, yenilikçi ve kaliteli hizmeti sunarak; otomotiv sektöründe sıfır ve
                     ikinci el araç satışı, sigorta, kiralama, servis, yedek parça ve aksesuar hizmetlerinin yanı sıra
                     inşaat alanında da güvenilir bir çözüm ortağı olmak.</p>
             </div>
-            <div class="mv-card mv-vizyon">
+
+            <div class="mv-block">
                 <h3>Vizyonumuz</h3>
                 <p>Elektrikli araçlar ve mikromobilite çözümleriyle geleceğin ulaşım ihtiyaçlarını bugünden karşılayan,
                     sürekli büyüyen ve farklı markaları bünyesine katarak ulusal ve uluslararası ölçekte güvenilir bir
@@ -559,10 +700,6 @@
 
 
 
-
-
-
-
   
 
     
@@ -570,49 +707,196 @@
 
     
 
+<!-- İLETİŞİM -->
+<section id="iletişim" class="contact-section">
+    <h2 class="section-title">İletişim</h2>
+    <p class="section-description">Gerekli bilgiler veya sorularınız mı var? Bize istediğiniz zaman ulaşabilirsiniz.</p>
 
-<!--FOOTER-->
-    <section id="iletişim" class="contact-section">
-        <h2 class="section-title">İletişim</h2>
-        <p class="section-description">
-            Gerekli bilgiler veya sorularınız mı var? Bize istediğiniz zaman ulaşabilirsiniz.
-        </p>
-    
-        <div class="contact-container">
-            <div class="contact-info">
-                <div class="info-box">
-                    <h3>Adres</h3>
-                    <p>----------------------------</p>
-                </div>
-                <div class="info-box">
-                    <h3>Bizi Arayın</h3>
-                    <p>-------------------</p>
-                </div>
-                <div class="info-box">
-                    <h3>Çalışma Saatleri</h3>
-                    <p>Açık ⋅ 18:00'da kapanır</p>
-                </div>
-                <div class="map-box">
+    <div class="contact-container">
+        <!-- Sol kart: Bilgiler -->
+        <div class="contact-card contact-info">
+            <div class="info-box">
+                <h3>Adres</h3>
+                <p>----------------------------</p>
+            </div>
+            <div class="info-box">
+                <h3>Bizi Arayın</h3>
+                <p>-------------------</p>
+            </div>
+            <div class="info-box">
+                <h3>Çalışma Saatleri</h3>
+                <p>Açık ⋅ 18:00'da kapanır</p>
+            </div>
+
+            <div class="map-box">
                 <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12039.83296822173!2d28.855734110822085!3d41.03382297709924!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caba5d8711a2d9%3A0xccc13d5c43e5b3f5!2zxLBzdGFuYnVsLCBCYcSfxLFrbGFy!5e0!3m2!1str!2str!4v1724080255792!5m2!1str!2str"
                     width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy">
                 </iframe>
-                </div>
-            </div>
-    
-            <div class="contact-form">
-                <form>
-                    <div class="form-row">
-                        <input type="text" placeholder="Adınız" required>
-                        <input type="email" placeholder="E-posta Adresiniz" required>
-                    </div>
-                    <input type="text" placeholder="Konu" required>
-                    <textarea placeholder="Mesajınız" required></textarea>
-                    <button type="submit">Mesajı Gönder</button>
-                </form>
             </div>
         </div>
-    </section>
+
+        <!-- Sağ kart: Form -->
+        <div class="contact-card contact-form">
+            <form>
+                <div class="form-row">
+                    <input type="text" placeholder="Adınız" required>
+                    <input type="email" placeholder="E-posta Adresiniz" required>
+                </div>
+                <input type="text" placeholder="Konu" required>
+                <textarea placeholder="Mesajınız" required></textarea>
+                <button type="submit">Mesajı Gönder</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* ===========================
+   İLETİŞİM – yalın & namespaced
+   =========================== */
+    .contact-section {
+        padding: 60px 20px;
+        text-align: center;
+    }
+
+    .contact-section .section-title {
+        font-size: 2.5rem;
+        color: #dea15c;
+        margin: 0 0 8px;
+    }
+
+    .contact-section .section-description {
+        color: #c8c8c8;
+        /* koyu arka planda daha okunaklı */
+        margin: 10px 0 40px;
+    }
+
+    /* Düzen: iki sütun, ortalanmış ve sabit maksimum genişlik */
+    .contact-section .contact-container {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+        align-items: start;
+    }
+
+    /* Kartlar */
+    .contact-section .contact-card {
+        background: #29292998;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        border-radius: 10px;
+        padding: 28px;
+    }
+
+    .contact-section .contact-info .info-box {
+        text-align: left;
+        margin-bottom: 18px;
+    }
+
+    .contact-section .contact-info h3 {
+        color: #ffffff;
+        margin: 0 0 6px;
+        font-size: 1.1rem;
+    }
+
+    .contact-section .contact-info p {
+        color: #ffffff;
+        margin: 0;
+    }
+
+    .contact-section .map-box {
+        margin-top: 18px;
+    }
+
+    .contact-section .map-box iframe {
+        width: 100%;
+        height: 260px;
+        border-radius: 8px;
+    }
+
+    /* Form – tamamen namespaced (başka CSS’ler bozamasın) */
+    .contact-section .contact-form form {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+        text-align: left;
+    }
+
+    /* İlk satır: iki kolon */
+    .contact-section .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    /* Alanlar */
+    .contact-section input,
+    .contact-section textarea {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 12px 14px;
+        border: 1px solid #e3e3e3;
+        border-radius: 6px;
+        background: #fff;
+        color: #222;
+        font-size: 1rem;
+        outline: none;
+        transition: border-color .2s, box-shadow .2s, background-color .2s;
+    }
+
+    .contact-section input::placeholder,
+    .contact-section textarea::placeholder {
+        color: #9da3ad;
+    }
+
+    .contact-section input:focus,
+    .contact-section textarea:focus {
+        border-color: #b7b7b7;
+        box-shadow: 0 0 0 3px rgba(0, 0, 0, .06);
+    }
+
+    /* Textarea */
+    .contact-section textarea {
+        min-height: 130px;
+        resize: vertical;
+    }
+
+    /* Buton */
+    .contact-section button {
+        background-color: #000;
+        color: #fff;
+        border: none;
+        padding: 12px 16px;
+        font-size: 1rem;
+        border-radius: 26px;
+        cursor: pointer;
+        transition: background-color .2s, transform .05s;
+    }
+
+    .contact-section button:hover {
+        background-color: #343434;
+    }
+
+    .contact-section button:active {
+        transform: translateY(1px);
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+        .contact-section .contact-container {
+            grid-template-columns: 1fr;
+            /* tek kolon */
+        }
+
+        .contact-section .form-row {
+            grid-template-columns: 1fr;
+            /* Ad & E-posta alta geçer */
+        }
+    }
+</style>
+
 
 
 
