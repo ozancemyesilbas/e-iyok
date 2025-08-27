@@ -257,18 +257,30 @@ body.menu-open {
     display: block;
 }
 
+/* Masaüstü: yazıları sağda */
 .slide-content {
     position: absolute;
     top: 0;
-    left: 0;
+    left: auto;
+    /* soldan sabitlemeyi kaldır */
+    right: 0;
+    /* sağa yasla */
     width: 50%;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: flex-end;
+    /* içerikleri sağda topla */
     padding: 40px;
     color: #fff;
-    background: linear-gradient(to right, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+    text-align: right;
+    /* metni sağa hizala */
+    background: linear-gradient(to left,
+            /* sağdan sola karart */
+            rgba(0, 0, 0, 0.7) 0%,
+            rgba(0, 0, 0, 0.4) 60%,
+            transparent 100%);
 }
 
 .slide-title {
@@ -287,7 +299,7 @@ body.menu-open {
 .slide-button {
     display: inline-block;
     padding: 12px 30px;
-    background-color: #ff6b6b;
+    background-color: #ff6b6b69;
     color: white;
     text-decoration: none;
     border-radius: 30px;
@@ -446,7 +458,7 @@ body {
 /* Bölüm */
 .about {
     padding: 80px 0;
-    background: linear-gradient(135deg, rgba(21, 23, 26, .46) 0%, rgba(3, 3, 3, .38) 100%);
+    background: linear-gradient(135deg, rgba(53, 53, 54, 0.46) 0%, rgba(72, 72, 72, 0.523) 100%);
 }
 
 .about .container {
