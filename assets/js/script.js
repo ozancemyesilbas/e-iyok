@@ -28,122 +28,83 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-// Banner Slider (stabil)
+
+
+
+// Banner Slider (düzeltildi)
 document.addEventListener('DOMContentLoaded', () => {
   const container = document.querySelector('.banner-container');
   const track = document.querySelector('.slides');
   const slides = Array.from(document.querySelectorAll('.slide'));
   const prevArrow = document.querySelector('.arrow-left');
   const nextArrow = document.querySelector('.arrow-right');
-  const nav = document.querySelector('.banner-navigation');
+  const dots = Array.from(document.querySelectorAll('.nav-dot'));
 
-  const SLIDE_TIME = 5000;    // otomatik geçiş süresi
-  const SWIPE_THRESHOLD = 40; // px
+  if (!container || !track || slides.length === 0) return;
 
+  const SLIDE_TIME = 5000;
   let current = 0;
-  const count = slides.length;
-  let intervalId = null;
+  let timer = null;
 
-  // --- Dots'ları slayt sayısına göre oluştur ---
-  nav.innerHTML = '';
-  const dots = [];
-  for (let i = 0; i < count; i++) {
-    const dot = document.createElement('div');
-    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
-    dot.dataset.slide = String(i);
-    nav.appendChild(dot);
-    dots.push(dot);
-  }
-
-  // --- Yardımcılar ---
   const setActiveDot = (idx) => {
+    if (dots.length === 0) return;
     dots.forEach(d => d.classList.remove('active'));
     if (dots[idx]) dots[idx].classList.add('active');
   };
 
+  const setActiveSlide = (idx) => {
+    slides.forEach((s, i) => s.classList.toggle('is-active', i === idx)); // animasyon için
+  };
+
   const applyTransform = (idx) => {
-    // Her slide %100 genişlikte olduğu için doğrudan % çevirme:
+    // DÜZELTME: her slayt %100 -> -index * 100%
     track.style.transform = `translateX(-${idx * 100}%)`;
   };
 
   const goTo = (n) => {
+    const count = slides.length;
     current = (n + count) % count;
     applyTransform(current);
     setActiveDot(current);
+    setActiveSlide(current);
   };
 
   const next = () => goTo(current + 1);
   const prev = () => goTo(current - 1);
 
-  const startAuto = () => {
-    stopAuto();
-    intervalId = setInterval(next, SLIDE_TIME);
+  const start = () => {
+    stop();
+    timer = setInterval(next, SLIDE_TIME);
+  };
+  const stop = () => {
+    if (timer) { clearInterval(timer); timer = null; }
   };
 
-  const stopAuto = () => {
-    if (intervalId) {
-      clearInterval(intervalId);
-      intervalId = null;
-    }
-  };
+  // Oklar
+  nextArrow?.addEventListener('click', () => { stop(); next(); start(); });
+  prevArrow?.addEventListener('click', () => { stop(); prev(); start(); });
 
-  // --- Olaylar: Oklar ---
-  nextArrow?.addEventListener('click', () => {
-    stopAuto(); next(); startAuto();
-  });
-  prevArrow?.addEventListener('click', () => {
-    stopAuto(); prev(); startAuto();
+  // Noktalar
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => { stop(); goTo(i); start(); });
   });
 
-  // --- Olaylar: Dots ---
-  dots.forEach(d => {
-    d.addEventListener('click', (e) => {
-      const idx = parseInt(e.currentTarget.dataset.slide, 10) || 0;
-      stopAuto(); goTo(idx); startAuto();
-    });
-  });
+  // Hover
+  container.addEventListener('mouseenter', stop);
+  container.addEventListener('mouseleave', start);
 
-  // --- Hover: dur / kalk ---
-  container.addEventListener('mouseenter', stopAuto);
-  container.addEventListener('mouseleave', startAuto);
-
-  // --- Sekme görünürlüğü (arka plana geçince dur) ---
+  // Görünürlük
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) stopAuto(); else startAuto();
+    if (document.hidden) stop(); else start();
   });
 
-  // --- Klavye ile gezinme ---
-  container.setAttribute('tabindex', '0');
-  container.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowRight') { stopAuto(); next(); startAuto(); }
-    if (e.key === 'ArrowLeft')  { stopAuto(); prev(); startAuto(); }
-  });
-
-  // --- Dokunmatik (swipe) ---
-  let touchStartX = null;
-  container.addEventListener('touchstart', (e) => {
-    touchStartX = e.touches[0].clientX;
-    stopAuto();
-  }, { passive: true });
-
-  container.addEventListener('touchmove', (e) => {
-    // isteğe bağlı: canlı sürükleme eklenebilir
-  }, { passive: true });
-
-  container.addEventListener('touchend', (e) => {
-    if (touchStartX !== null) {
-      const dx = (e.changedTouches[0].clientX - touchStartX);
-      if (dx > SWIPE_THRESHOLD) prev();
-      else if (dx < -SWIPE_THRESHOLD) next();
-      touchStartX = null;
-      startAuto();
-    }
-  });
-
-  // --- Başlangıç ---
+  // Başlat
   goTo(0);
-  startAuto();
+  start();
 });
+
+
+
 
 
 

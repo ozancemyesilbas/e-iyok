@@ -228,25 +228,53 @@ body.menu-open {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ===== Banner (image-only) – clean ===== */
 .banner-container {
     position: relative;
     width: 100%;
     height: 700px;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .2);
 }
 
 .slides {
     display: flex;
     width: 100%;
     height: 100%;
-    transition: transform 0.8s ease-in-out;
+    transition: transform .8s ease-in-out;
 }
 
 .slide {
     position: relative;
-    width: 100%;
     flex: 0 0 100%;
+    width: 100%;
     height: 100%;
 }
 
@@ -257,63 +285,7 @@ body.menu-open {
     display: block;
 }
 
-/* Masaüstü: yazıları sağda */
-.slide-content {
-    position: absolute;
-    top: 0;
-    left: auto;
-    /* soldan sabitlemeyi kaldır */
-    right: 0;
-    /* sağa yasla */
-    width: 50%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-end;
-    /* içerikleri sağda topla */
-    padding: 40px;
-    color: #fff;
-    text-align: right;
-    /* metni sağa hizala */
-    background: linear-gradient(to left,
-            /* sağdan sola karart */
-            rgba(0, 0, 0, 0.7) 0%,
-            rgba(0, 0, 0, 0.4) 60%,
-            transparent 100%);
-}
-
-.slide-title {
-    font-size: 2.5rem;
-    margin-bottom: 15px;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-}
-
-.slide-description {
-    font-size: 1.2rem;
-    margin-bottom: 25px;
-    line-height: 1.6;
-    max-width: 80%;
-}
-
-.slide-button {
-    display: inline-block;
-    padding: 12px 30px;
-    background-color: #ff6b6b69;
-    color: white;
-    text-decoration: none;
-    border-radius: 30px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    width: fit-content;
-}
-
-.slide-button:hover {
-    background-color: #ff5252;
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-
+/* Dots */
 .banner-navigation {
     position: absolute;
     bottom: 20px;
@@ -327,35 +299,36 @@ body.menu-open {
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, .5);
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color .3s;
 }
 
 .nav-dot.active {
-    background-color: #fff;
+    background: #fff;
 }
 
+/* Arrows */
 .arrow {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     width: 50px;
     height: 50px;
-    background-color: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, .4);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: #fff;
     font-size: 1.5rem;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color .3s;
     z-index: 10;
 }
 
 .arrow:hover {
-    background-color: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, .7);
 }
 
 .arrow-left {
@@ -366,53 +339,39 @@ body.menu-open {
     right: 20px;
 }
 
-/* Responsive tasarım */
-@media (max-width: 992px) {
-    .slide-content {
-        width: 60%;
+/* (Opsiyonel) Ken Burns efekti yalnızca görsele */
+@keyframes kenburns {
+    from {
+        transform: scale(1.06);
     }
 
-    .slide-title {
-        font-size: 2rem;
+    to {
+        transform: scale(1);
     }
 }
 
-@media (max-width: 768px) {
+.slide.is-active .slide-img {
+    animation: kenburns 6s ease-out both;
+}
+
+/* ===== Responsive ===== */
+@media (max-width:992px) {
+    .banner-container {
+        height: 560px;
+    }
+
+    /* istersen 500px yap */
+}
+
+@media (max-width:768px) {
     .banner-container {
         height: 400px;
     }
-
-    .slide-content {
-        width: 100%;
-        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
-        text-align: center;
-        align-items: center;
-    }
-
-    .slide-description {
-        max-width: 100%;
-    }
-
-    .slide-title {
-        font-size: 1.8rem;
-    }
 }
 
-@media (max-width: 576px) {
+@media (max-width:576px) {
     .banner-container {
         height: 350px;
-    }
-
-    .slide-title {
-        font-size: 1.5rem;
-    }
-
-    .slide-description {
-        font-size: 1rem;
-    }
-
-    .slide-content {
-        padding: 20px;
     }
 
     .arrow {
@@ -421,6 +380,75 @@ body.menu-open {
         font-size: 1.2rem;
     }
 }
+
+/* Slaytı komple tıklanabilir yapan görünmez link katmanı */
+.slide {
+    position: relative;
+}
+
+.slide-link {
+    position: absolute;
+    inset: 0;
+    /* top/right/bottom/left:0 */
+    z-index: 2;
+    /* görselin üstünde, okların altında (oklarda z-index:10) */
+    display: block;
+    text-indent: -9999px;
+    /* ekran okuyucu etiketi kalsın, görselde yazı görünmesin */
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* #id'lere yumuşak kaydırma (isteğe bağlı) */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
