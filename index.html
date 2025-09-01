@@ -229,15 +229,20 @@
         <img src="assets/image/tenaxbc.png" alt="Background 1" class="bg">
         <img src="assets/image/tenaxbeyaz.png" alt="Logo" class="logo">
     </div>
-    <div id="rainwol" class="box">
-        <img src="assets/image/Rainwol.jpg" alt="Background 2" class="bg">
-        <img src="assets/image/rainwoll-logo.png" alt="Logo" class="logo">
-    </div>
-    <div id="swm" class="box">
-        <img src="assets/image/SWM.jpg" alt="Background 3" class="bg">
-        <img src="assets/image/swm.png" alt="Logo" class="logo">
-    </div>
+<div id="rainwol" class="box" data-service-name="Rainwoll">
+    <img src="assets/image/Rainwol.jpg" alt="Background 2" class="bg">
+    <img src="assets/image/rainwoll-logo.png" alt="Logo" class="logo">
 </div>
+
+<div id="swm" class="box" data-service-name="SWM">
+    <img src="assets/image/SWM.jpg" alt="Background 3" class="bg">
+    <img src="assets/image/swm.png" alt="Logo" class="logo">
+</div>
+
+</div>
+
+
+
 <br>
 <br>
 <br>
@@ -627,6 +632,9 @@
 
 
 </style>
+
+
+
 
 
 
@@ -1096,8 +1104,63 @@
 
 
 
+<!-- Teklif Al butonu kapsayıcıyla -->
+<div id="teklif-al-wrapper">
+    <a id="teklif-al" href="#diğer" aria-label="Teklif Al">
+        <img src="assets/image/teklifal.png" alt="Teklif Al">
+    </a>
+</div>
 
 
+<style>
+    /* Kapsayıcı sabitleniyor */
+#teklif-al-wrapper{
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 9999;
+}
+
+/* Bağlantı resmi */
+#teklif-al img{
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-drag: none;
+  filter: drop-shadow(0 6px 16px rgba(0,0,0,.25));
+  transform-origin: 50% 80%;
+  animation: teklif-wobble 3s infinite; /* 3 saniyede bir sallansın */
+}
+
+@keyframes teklif-wobble{
+  0%, 85%, 100% { transform: translate(0,0) rotate(0deg); }
+  88% { transform: translateY(-2px) rotate(-8deg); }
+  91% { transform: translateY(-2px) rotate(8deg); }
+  94% { transform: rotate(-5deg); }
+  97% { transform: rotate(5deg); }
+}
+
+@media (prefers-reduced-motion: reduce){
+  #teklif-al img{ animation: none; }
+}
+
+/* Yumuşak kaydırma */
+html{ scroll-behavior: smooth; }
+
+</style>
+
+
+<script>
+    document.getElementById('teklif-al')?.addEventListener('click', function (e) {
+        const target = document.getElementById('diğer');
+        if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    });
+</script>
 
 
 
@@ -1150,30 +1213,88 @@
 
 <script>
     (() => {
+        // --- Form şablonları ---
         const FORM_TEMPLATES = {
-             sigorta: [
+            sigorta: [
+                // En başa ad-soyad
+                { name: 'ad', label: 'Adınız Soyadınız *', type: 'text', placeholder: 'Ad Soyad', required: true },
+
                 {
                     name: 'tckn', label: 'T.C. Kimlik Numarası *', type: 'text',
                     placeholder: '11 haneli TCKN', required: true, pattern: '^\\d{11}$', maxlength: 11, inputmode: 'numeric'
                 },
-
                 { name: 'dogum', label: 'Doğum Tarihiniz *', type: 'date', required: true },
-
-                // Özel telefon satırı (+90 sabit, 10 hane)
                 {
                     name: 'telefon', label: 'Telefon Numaranız *', type: 'phone',
                     placeholder: '5xxxxxxxxx', required: true, pattern: '^\\d{10}$', maxlength: 10
                 },
-
                 {
                     name: 'email', label: 'Email Adresiniz *', type: 'email',
                     placeholder: 'ornek@domain.com', required: true
                 },
 
-                // Tümünü işaretle kutusu
-                { type: 'checkbox', id: 'allConsents', label: 'Tümünü işaretle.' },
+                // Ürün seçimi (zorunlu)
+                {
+                    name: 'urun', label: 'İlgilendiğiniz Ürün *', type: 'select', required: true,
+                    options: [
+                        { value: '', text: 'Seçiniz', disabled: true, selected: true },
+                        { value: 'trafik', text: 'Zorunlu Trafik Sigortası' },
+                        { value: 'kasko', text: 'Kasko Sigortası' },
+                        { value: 'saglik', text: 'Sağlık Sigortası' },
+                        { value: 'tamamlayici_saglik', text: 'Tamamlayıcı Sağlık Sigortası' },
+                        { value: 'dask', text: 'DASK' },
+                        { value: 'seyahat', text: 'Seyahat Sağlık Sigortası' },
+                    ]
+                },
 
-                // Onay kutuları grubu
+                // Mesaj (opsiyonel) – dinamik alanları bunun ÜSTÜNE ekleyeceğiz
+                {
+                    name: 'mesaj', label: 'Mesajınız (opsiyonel)', type: 'textarea',
+                    placeholder: 'Eklemek istediğiniz bir not varsa yazabilirsiniz…', required: false, rows: 4
+                },
+
+                { type: 'checkbox', id: 'allConsents', label: 'Tümünü işaretle.' },
+                {
+                    type: 'consents', items: [
+                        {
+                            name: 'kvkk', required: true, html: `
+              <a href="/kvkk" target="_blank" rel="noopener">
+                Kişisel Verilerin İşlenmesi Hakkında Aydınlatma Metnini
+              </a>,
+              <a href="/ticari-aydinlatma" target="_blank" rel="noopener">
+                Ticari Elektronik İleti Gönderimi için Kişisel Verilerin İşlenmesine Yönelik Aydınlatma Metnini
+              </a> okudum.*`
+                        },
+                        {
+                            name: 'ticari_izin', required: false, html: `
+              <a href="/ticari-iletisim-izni" target="_blank" rel="noopener">
+                Ticari elektronik ileti
+              </a> gönderilmesini kabul ediyorum.`
+                        },
+                        {
+                            name: 'sozlesme', required: true, html: `
+              <a href="/kullanici-sozlesmesi" target="_blank" rel="noopener">Kullanıcı Sözleşmesi</a>
+              ve
+              <a href="/gizlilik" target="_blank" rel="noopener">Gizlilik Politikası</a>nı okudum ve onaylıyorum.*`
+                        },
+                    ]
+                }
+            ],
+            sat: [
+                { name: 'ad', label: 'Ad', type: 'text', placeholder: 'Ad Soyad', required: true },
+                { name: 'tckn', label: 'TCKN', type: 'text', placeholder: '11 haneli TCKN', required: true, pattern: '^\\d{11}$', maxlength: 11 },
+                {
+                    name: 'telefon', label: 'Telefon Numaranız *', type: 'phone',
+                    placeholder: '5xxxxxxxxx', required: true, pattern: '^\\d{10}$', maxlength: 10
+                },
+                { name: 'eposta', label: 'E-posta', type: 'email', placeholder: 'ornek@domain.com', required: true },
+
+                {
+                    name: 'mesaj', label: 'Mesajınız (opsiyonel)', type: 'textarea',
+                    placeholder: 'Eklemek istediğiniz bir not varsa yazabilirsiniz…', required: false, rows: 4
+                },
+
+                { type: 'checkbox', id: 'allConsents', label: 'Tümünü işaretle.' },
                 {
                     type: 'consents', items: [
                         {
@@ -1183,40 +1304,191 @@
           </a>,
           <a href="/ticari-aydinlatma" target="_blank" rel="noopener">
             Ticari Elektronik İleti Gönderimi için Kişisel Verilerin İşlenmesine Yönelik Aydınlatma Metnini
-          </a> okudum.*` },
-
+          </a> okudum.*`
+                        },
                         {
                             name: 'ticari_izin', required: false, html: `
           <a href="/ticari-iletisim-izni" target="_blank" rel="noopener">
             Ticari elektronik ileti
-          </a> gönderilmesini kabul ediyorum.` },
-
+          </a> gönderilmesini kabul ediyorum.`
+                        },
                         {
                             name: 'sozlesme', required: true, html: `
           <a href="/kullanici-sozlesmesi" target="_blank" rel="noopener">Kullanıcı Sözleşmesi</a>
           ve
-          <a href="/gizlilik" target="_blank" rel="noopener">Gizlilik Politikası</a>nı okudum ve onaylıyorum.*` },
+          <a href="/gizlilik" target="_blank" rel="noopener">Gizlilik Politikası</a>nı okudum ve onaylıyorum.*`
+                        },
                     ]
                 }
             ],
-            sat: [
+           kiralama: [
                 { name: 'ad', label: 'Ad', type: 'text', placeholder: 'Ad Soyad', required: true },
                 { name: 'tckn', label: 'TCKN', type: 'text', placeholder: '11 haneli TCKN', required: true, pattern: '^\\d{11}$', maxlength: 11 },
-                { name: 'tarih', label: 'Tarih', type: 'date', required: true },
-                { name: 'eposta', label: 'E-posta', type: 'email', placeholder: 'ornek@domain.com', required: true }
+                {
+                    name: 'telefon', label: 'Telefon Numaranız *', type: 'phone',
+                    placeholder: '5xxxxxxxxx', required: true, pattern: '^\\d{10}$', maxlength: 10
+                },
+                { name: 'eposta', label: 'E-posta', type: 'email', placeholder: 'ornek@domain.com', required: true },
+
+                {
+                    name: 'mesaj', label: 'Mesajınız (opsiyonel)', type: 'textarea',
+                    placeholder: 'Eklemek istediğiniz bir not varsa yazabilirsiniz…', required: false, rows: 4
+                },
+
+                { type: 'checkbox', id: 'allConsents', label: 'Tümünü işaretle.' },
+                {
+                    type: 'consents', items: [
+                        {
+                            name: 'kvkk', required: true, html: `
+          <a href="/kvkk" target="_blank" rel="noopener">
+            Kişisel Verilerin İşlenmesi Hakkında Aydınlatma Metnini
+          </a>,
+          <a href="/ticari-aydinlatma" target="_blank" rel="noopener">
+            Ticari Elektronik İleti Gönderimi için Kişisel Verilerin İşlenmesine Yönelik Aydınlatma Metnini
+          </a> okudum.*`
+                        },
+                        {
+                            name: 'ticari_izin', required: false, html: `
+          <a href="/ticari-iletisim-izni" target="_blank" rel="noopener">
+            Ticari elektronik ileti
+          </a> gönderilmesini kabul ediyorum.`
+                        },
+                        {
+                            name: 'sozlesme', required: true, html: `
+          <a href="/kullanici-sozlesmesi" target="_blank" rel="noopener">Kullanıcı Sözleşmesi</a>
+          ve
+          <a href="/gizlilik" target="_blank" rel="noopener">Gizlilik Politikası</a>nı okudum ve onaylıyorum.*`
+                        },
+                    ]
+                }
             ],
-            kiralama: [
-                { name: 'ad', label: 'Ad', type: 'text', placeholder: 'Ad Soyad', required: true },
-                { name: 'tckn', label: 'TCKN', type: 'text', placeholder: '11 haneli TCKN', required: true, pattern: '^\\d{11}$', maxlength: 11 },
-                { name: 'tarih', label: 'Tarih', type: 'date', required: true },
-                { name: 'eposta', label: 'E-posta', type: 'email', placeholder: 'ornek@domain.com', required: true }
-            ],
+
             servis: [
                 { name: 'ad', label: 'Ad', type: 'text', placeholder: 'Ad Soyad', required: true },
                 { name: 'tckn', label: 'TCKN', type: 'text', placeholder: '11 haneli TCKN', required: true, pattern: '^\\d{11}$', maxlength: 11 },
-                { name: 'tarih', label: 'Tarih', type: 'date', required: true },
-                { name: 'eposta', label: 'E-posta', type: 'email', placeholder: 'ornek@domain.com', required: true }
-            ]
+                {
+                    name: 'telefon', label: 'Telefon Numaranız *', type: 'phone',
+                    placeholder: '5xxxxxxxxx', required: true, pattern: '^\\d{10}$', maxlength: 10
+                },
+                { name: 'eposta', label: 'E-posta', type: 'email', placeholder: 'ornek@domain.com', required: true },
+
+                {
+                    name: 'mesaj', label: 'Mesajınız (opsiyonel)', type: 'textarea',
+                    placeholder: 'Eklemek istediğiniz bir not varsa yazabilirsiniz…', required: false, rows: 4
+                },
+
+                { type: 'checkbox', id: 'allConsents', label: 'Tümünü işaretle.' },
+                {
+                    type: 'consents', items: [
+                        {
+                            name: 'kvkk', required: true, html: `
+          <a href="/kvkk" target="_blank" rel="noopener">
+            Kişisel Verilerin İşlenmesi Hakkında Aydınlatma Metnini
+          </a>,
+          <a href="/ticari-aydinlatma" target="_blank" rel="noopener">
+            Ticari Elektronik İleti Gönderimi için Kişisel Verilerin İşlenmesine Yönelik Aydınlatma Metnini
+          </a> okudum.*`
+                        },
+                        {
+                            name: 'ticari_izin', required: false, html: `
+          <a href="/ticari-iletisim-izni" target="_blank" rel="noopener">
+            Ticari elektronik ileti
+          </a> gönderilmesini kabul ediyorum.`
+                        },
+                        {
+                            name: 'sozlesme', required: true, html: `
+          <a href="/kullanici-sozlesmesi" target="_blank" rel="noopener">Kullanıcı Sözleşmesi</a>
+          ve
+          <a href="/gizlilik" target="_blank" rel="noopener">Gizlilik Politikası</a>nı okudum ve onaylıyorum.*`
+                        },
+                    ]
+                }
+            ],
+            rainwol: [
+                { name: 'ad', label: 'Ad', type: 'text', placeholder: 'Ad Soyad', required: true },
+                { name: 'tckn', label: 'TCKN', type: 'text', placeholder: '11 haneli TCKN', required: true, pattern: '^\\d{11}$', maxlength: 11 },
+                {
+                    name: 'telefon', label: 'Telefon Numaranız *', type: 'phone',
+                    placeholder: '5xxxxxxxxx', required: true, pattern: '^\\d{10}$', maxlength: 10
+                },
+                { name: 'eposta', label: 'E-posta', type: 'email', placeholder: 'ornek@domain.com', required: true },
+
+                {
+                    name: 'mesaj', label: 'Mesajınız (opsiyonel)', type: 'textarea',
+                    placeholder: 'Eklemek istediğiniz bir not varsa yazabilirsiniz…', required: false, rows: 4
+                },
+
+                { type: 'checkbox', id: 'allConsents', label: 'Tümünü işaretle.' },
+                {
+                    type: 'consents', items: [
+                        {
+                            name: 'kvkk', required: true, html: `
+          <a href="/kvkk" target="_blank" rel="noopener">
+            Kişisel Verilerin İşlenmesi Hakkında Aydınlatma Metnini
+          </a>,
+          <a href="/ticari-aydinlatma" target="_blank" rel="noopener">
+            Ticari Elektronik İleti Gönderimi için Kişisel Verilerin İşlenmesine Yönelik Aydınlatma Metnini
+          </a> okudum.*`
+                        },
+                        {
+                            name: 'ticari_izin', required: false, html: `
+          <a href="/ticari-iletisim-izni" target="_blank" rel="noopener">
+            Ticari elektronik ileti
+          </a> gönderilmesini kabul ediyorum.`
+                        },
+                        {
+                            name: 'sozlesme', required: true, html: `
+          <a href="/kullanici-sozlesmesi" target="_blank" rel="noopener">Kullanıcı Sözleşmesi</a>
+          ve
+          <a href="/gizlilik" target="_blank" rel="noopener">Gizlilik Politikası</a>nı okudum ve onaylıyorum.*`
+                        },
+                    ]
+                }
+            ],
+
+            swm: [
+                { name: 'ad', label: 'Ad', type: 'text', placeholder: 'Ad Soyad', required: true },
+                { name: 'tckn', label: 'TCKN', type: 'text', placeholder: '11 haneli TCKN', required: true, pattern: '^\\d{11}$', maxlength: 11 },
+                {
+                    name: 'telefon', label: 'Telefon Numaranız *', type: 'phone',
+                    placeholder: '5xxxxxxxxx', required: true, pattern: '^\\d{10}$', maxlength: 10
+                },
+                { name: 'eposta', label: 'E-posta', type: 'email', placeholder: 'ornek@domain.com', required: true },
+
+                {
+                    name: 'mesaj', label: 'Mesajınız (opsiyonel)', type: 'textarea',
+                    placeholder: 'Eklemek istediğiniz bir not varsa yazabilirsiniz…', required: false, rows: 4
+                },
+
+                { type: 'checkbox', id: 'allConsents', label: 'Tümünü işaretle.' },
+                {
+                    type: 'consents', items: [
+                        {
+                            name: 'kvkk', required: true, html: `
+          <a href="/kvkk" target="_blank" rel="noopener">
+            Kişisel Verilerin İşlenmesi Hakkında Aydınlatma Metnini
+          </a>,
+          <a href="/ticari-aydinlatma" target="_blank" rel="noopener">
+            Ticari Elektronik İleti Gönderimi için Kişisel Verilerin İşlenmesine Yönelik Aydınlatma Metnini
+          </a> okudum.*`
+                        },
+                        {
+                            name: 'ticari_izin', required: false, html: `
+          <a href="/ticari-iletisim-izni" target="_blank" rel="noopener">
+            Ticari elektronik ileti
+          </a> gönderilmesini kabul ediyorum.`
+                        },
+                        {
+                            name: 'sozlesme', required: true, html: `
+          <a href="/kullanici-sozlesmesi" target="_blank" rel="noopener">Kullanıcı Sözleşmesi</a>
+          ve
+          <a href="/gizlilik" target="_blank" rel="noopener">Gizlilik Politikası</a>nı okudum ve onaylıyorum.*`
+                        },
+                    ]
+                }
+            ],
+
+
         };
 
         const modal = document.getElementById('popupModal');
@@ -1228,18 +1500,272 @@
         const form = document.getElementById('dynamicForm');
         const fieldsWrap = document.getElementById('formFields');
 
-        document.querySelectorAll('.vehicle-card').forEach(card => {
-            card.addEventListener('click', () => {
-                const id = card.id || 'sigorta';
-                const titleText = card.querySelector('.vehicle-logo-text')?.textContent?.trim() || 'Bilgi Formu';
+      // Kart + kutu tıklamaları (vehicle-card ve .box)
+        document.querySelectorAll('.vehicle-card, .box').forEach(el => {
+            el.addEventListener('click', () => {
+                const rawId = el.id || 'sigorta';
+
+                // Eğer tenax ise form açma
+                if (rawId === 'tenax') return;
+
+                // ID → form şablonu eşlemesi
+                const idMap = {
+                    rainwol: 'rainwol',
+                    swm: 'swm',
+                    sigorta: 'sigorta'
+                };
+
+                const formKey = idMap[rawId] || rawId; // FORM_TEMPLATES anahtarı
+
+                // Başlık
+                const titleText =
+                    el.dataset.serviceName
+                    || el.querySelector('.vehicle-logo-text')?.textContent?.trim()
+                    || (rawId ? rawId.toUpperCase() : 'Bilgi Formu');
+
                 titleEl.textContent = 'Bilgi Formu';
+                modal.dataset.serviceName = titleText;
                 subEl.textContent = `Seçilen hizmet: ${titleText}`;
-                buildFields(FORM_TEMPLATES[id] || FORM_TEMPLATES.sigorta, id);
+
+                buildFields(FORM_TEMPLATES[formKey] || FORM_TEMPLATES.sigorta, formKey);
                 openModal();
             });
         });
 
-       function buildFields(fields, sourceId) {
+
+
+        // --- Alan oluşturucular ---
+        function makeInput(f) {
+            const wrap = document.createElement('div');
+            wrap.className = 'form-field';
+
+            const label = document.createElement('label');
+            label.textContent = f.label || '';
+            label.setAttribute('for', `field_${f.name}`);
+
+            const input = document.createElement('input');
+            input.id = `field_${f.name}`;
+            input.name = f.name;
+            input.type = f.type || 'text';
+            if (f.placeholder) input.placeholder = f.placeholder;
+            if (f.required) input.required = true;
+            if (f.pattern) input.pattern = f.pattern;
+            if (f.maxlength) input.maxLength = f.maxlength;
+            if (f.min !== undefined) input.min = f.min;
+            if (f.max !== undefined) input.max = f.max;
+            if (f.step !== undefined) input.step = f.step;
+            if (f.inputmode) input.inputMode = f.inputmode;
+
+            wrap.appendChild(label);
+            wrap.appendChild(input);
+            fieldsWrap.appendChild(wrap);
+            return wrap;
+        }
+
+        function makePhone(f) {
+            const wrap = document.createElement('div');
+            wrap.className = 'form-field';
+
+            const label = document.createElement('label');
+            label.textContent = f.label;
+            label.setAttribute('for', 'field_telefon');
+
+            const row = document.createElement('div');
+            row.className = 'phone-row';
+
+            const pref = document.createElement('span');
+            pref.className = 'phone-prefix';
+            pref.textContent = '+90';
+
+            const input = document.createElement('input');
+            input.id = 'field_telefon';
+            input.name = f.name;
+            input.type = 'tel';
+            input.placeholder = f.placeholder || '5xxxxxxxxx';
+            if (f.required) input.required = true;
+            if (f.pattern) input.pattern = f.pattern;
+            if (f.maxlength) input.maxLength = f.maxlength;
+            input.inputMode = 'numeric';
+
+            row.appendChild(pref);
+            row.appendChild(input);
+            wrap.appendChild(label);
+            wrap.appendChild(row);
+            fieldsWrap.appendChild(wrap);
+            return wrap;
+        }
+
+        function makeSelect(f) {
+            const wrap = document.createElement('div');
+            wrap.className = 'form-field';
+
+            const label = document.createElement('label');
+            label.textContent = f.label || '';
+            label.setAttribute('for', `field_${f.name}`);
+
+            const select = document.createElement('select');
+            select.id = `field_${f.name}`;
+            select.name = f.name;
+            if (f.required) select.required = true;
+
+            (f.options || []).forEach(opt => {
+                const o = document.createElement('option');
+                o.value = opt.value ?? '';
+                o.textContent = opt.text ?? (opt.value ?? '');
+                if (opt.disabled) o.disabled = true;
+                if (opt.selected) o.selected = true;
+                select.appendChild(o);
+            });
+
+            wrap.appendChild(label);
+            wrap.appendChild(select);
+            fieldsWrap.appendChild(wrap);
+            return select;
+        }
+
+        function makeTextarea(f) {
+            const wrap = document.createElement('div');
+            wrap.className = 'form-field';
+
+            const label = document.createElement('label');
+            label.textContent = f.label || '';
+            label.setAttribute('for', `field_${f.name}`);
+
+            const ta = document.createElement('textarea');
+            ta.id = `field_${f.name}`;
+            ta.name = f.name;
+            ta.placeholder = f.placeholder || '';
+            ta.rows = f.rows || 4;
+            if (f.required) ta.required = true;
+
+            wrap.appendChild(label);
+            wrap.appendChild(ta);
+            fieldsWrap.appendChild(wrap);
+            return wrap;
+        }
+
+        function makeSelectAll(f) {
+            const wrap = document.createElement('div');
+            wrap.className = 'form-field';
+            const label = document.createElement('label');
+            label.className = 'checkline';
+
+            const box = document.createElement('input');
+            box.type = 'checkbox';
+            box.id = f.id || 'allConsents';
+
+            label.appendChild(box);
+            label.append(' ' + (f.label || 'Tümünü işaretle.'));
+            wrap.appendChild(label);
+            fieldsWrap.appendChild(wrap);
+        }
+
+        function makeConsents(f) {
+            const wrap = document.createElement('div');
+            wrap.className = 'form-field checkgroup';
+
+            f.items.forEach(item => {
+                const label = document.createElement('label');
+                label.className = 'checkline';
+
+                const box = document.createElement('input');
+                box.type = 'checkbox';
+                box.name = item.name;
+                if (item.required) box.required = true;
+
+                const span = document.createElement('span');
+                span.innerHTML = item.html;
+
+                label.appendChild(box);
+                label.appendChild(span);
+                wrap.appendChild(label);
+            });
+
+            fieldsWrap.appendChild(wrap);
+        }
+
+        // --- Dinamik grup yardımcıları ---
+        function upsertGroup(groupId, shouldShow, fieldSpecs) {
+            let group = document.getElementById(groupId);
+            if (shouldShow) {
+                if (!group) {
+                    group = document.createElement('div');
+                    group.id = groupId;
+                    group.dataset.dynamic = 'true';
+                    group.style.display = 'grid';
+                    group.style.gap = '12px';
+
+                    // fieldSpec'leri oluştur (geçici olarak fieldsWrap'a)
+                    fieldSpecs.forEach(spec => { makeInput(spec); });
+
+                    // Oluşturulan alanları toplayıp gruba taşı
+                    const created = [];
+                    fieldSpecs.forEach(spec => {
+                        const el = document.getElementById(`field_${spec.name}`)?.closest('.form-field');
+                        if (el) created.push(el);
+                    });
+                    created.forEach(el => group.appendChild(el));
+
+                    // Mesaj alanının üstüne yerleştir
+                    const mesajEl = document.getElementById('field_mesaj');
+                    const mesajWrap = mesajEl ? mesajEl.closest('.form-field') : null;
+                    if (mesajWrap) fieldsWrap.insertBefore(group, mesajWrap);
+                    else fieldsWrap.appendChild(group);
+                }
+
+                // Göster + required/disabled ayarları
+                group.style.display = 'grid';
+                Array.from(group.querySelectorAll('input')).forEach(inp => {
+                    inp.disabled = false;
+                    inp.required = true;
+                });
+            } else if (group) {
+                // Gizle + submit'te engel olmasın
+                Array.from(group.querySelectorAll('input')).forEach(inp => {
+                    inp.required = false;
+                    inp.disabled = true;
+                    inp.value = '';
+                });
+                group.style.display = 'none';
+            }
+        }
+
+        // Tek alanlı (Plaka)
+        const PLAKA_PATTERN = '^[0-9]{2}[A-Z]{1,3}[0-9]{2,4}$';
+        function upsertPlakaField(shouldShow) {
+            upsertGroup('group_plaka', shouldShow, [
+                { name: 'plaka', label: 'Plaka *', type: 'text', placeholder: '35ABC123', pattern: PLAKA_PATTERN, maxlength: 9, inputmode: 'text' }
+            ]);
+
+            const plakaInput = document.getElementById('field_plaka');
+            if (plakaInput && !plakaInput.dataset.upperBound) {
+                plakaInput.dataset.upperBound = '1';
+                plakaInput.addEventListener('input', (e) => {
+                    e.target.value = e.target.value.toUpperCase().replace(/[^0-9A-Z]/g, '');
+                });
+            }
+        }
+
+        // Tamamlayıcı Sağlık grubu (boy, kilo, hastane tercihi)
+        function upsertSaglikGroup(shouldShow) {
+            upsertGroup('group_tamamlayici_saglik', shouldShow, [
+                { name: 'boy', label: 'Boy (cm) *', type: 'number', placeholder: 'Örn: 175', min: 50, max: 250, step: 1 },
+                { name: 'kilo', label: 'Kilo (kg) *', type: 'number', placeholder: 'Örn: 70', min: 20, max: 300, step: 1 },
+                { name: 'hastane', label: 'Hastane Tercihi *', type: 'text', placeholder: 'Örn: Anlaşmalı/tercih ettiğiniz hastane' }
+            ]);
+        }
+
+        // DASK grubu (bina kat sayısı, daire katı, bina yaşı)
+        function upsertDaskGroup(shouldShow) {
+            upsertGroup('group_dask', shouldShow, [
+                { name: 'bina_kat_sayisi', label: 'Bina Kat Sayısı *', type: 'number', placeholder: 'Örn: 8', min: 1, max: 100, step: 1 },
+                { name: 'daire_kati', label: 'Daire Katı *', type: 'number', placeholder: 'Örn: 3', min: 0, max: 100, step: 1 },
+                { name: 'bina_yasi', label: 'Bina Yaşı *', type: 'number', placeholder: 'Örn: 15', min: 0, max: 200, step: 1 }
+            ]);
+        }
+
+        // --- Formu kur ---
+        function buildFields(fields, sourceId) {
             fieldsWrap.innerHTML = '';
 
             // Kaynak (gizli)
@@ -1249,111 +1775,16 @@
             hidden.value = sourceId;
             fieldsWrap.appendChild(hidden);
 
-            // Yardımcı oluşturucular
-            const makeInput = (f) => {
-                const wrap = document.createElement('div');
-                wrap.className = 'form-field';
-
-                const label = document.createElement('label');
-                label.textContent = f.label || '';
-                label.setAttribute('for', `field_${f.name}`);
-
-                const input = document.createElement('input');
-                input.id = `field_${f.name}`;
-                input.name = f.name;
-                input.type = f.type || 'text';
-                if (f.placeholder) input.placeholder = f.placeholder;
-                if (f.required) input.required = true;
-                if (f.pattern) input.pattern = f.pattern;
-                if (f.maxlength) input.maxLength = f.maxlength;
-                if (f.inputmode) input.inputMode = f.inputmode;
-
-                wrap.appendChild(label);
-                wrap.appendChild(input);
-                fieldsWrap.appendChild(wrap);
-            };
-
-            const makePhone = (f) => {
-                const wrap = document.createElement('div');
-                wrap.className = 'form-field';
-
-                const label = document.createElement('label');
-                label.textContent = f.label;
-                label.setAttribute('for', 'field_telefon');
-
-                const row = document.createElement('div');
-                row.className = 'phone-row';
-
-                const pref = document.createElement('span');
-                pref.className = 'phone-prefix';
-                pref.textContent = '+90';
-
-                const input = document.createElement('input');
-                input.id = 'field_telefon';
-                input.name = f.name;
-                input.type = 'tel';
-                input.placeholder = f.placeholder || '5xxxxxxxxx';
-                if (f.required) input.required = true;
-                if (f.pattern) input.pattern = f.pattern;
-                if (f.maxlength) input.maxLength = f.maxlength;
-                input.inputMode = 'numeric';
-
-                row.appendChild(pref);
-                row.appendChild(input);
-                wrap.appendChild(label);
-                wrap.appendChild(row);
-                fieldsWrap.appendChild(wrap);
-            };
-
-            const makeSelectAll = (f) => {
-                const wrap = document.createElement('div');
-                wrap.className = 'form-field';
-                const label = document.createElement('label');
-                label.className = 'checkline';
-
-                const box = document.createElement('input');
-                box.type = 'checkbox';
-                box.id = f.id || 'allConsents';
-
-                label.appendChild(box);
-                label.append(' ' + (f.label || 'Tümünü işaretle.'));
-                wrap.appendChild(label);
-                fieldsWrap.appendChild(wrap);
-            };
-
-            const makeConsents = (f) => {
-                const wrap = document.createElement('div');
-                wrap.className = 'form-field checkgroup';
-
-                f.items.forEach(item => {
-                    const label = document.createElement('label');
-                    label.className = 'checkline';
-
-                    const box = document.createElement('input');
-                    box.type = 'checkbox';
-                    box.name = item.name;
-                    if (item.required) box.required = true;
-
-                    const span = document.createElement('span');
-                    span.innerHTML = item.html;
-
-                    label.appendChild(box);
-                    label.appendChild(span);
-                    wrap.appendChild(label);
-                });
-
-                fieldsWrap.appendChild(wrap);
-            };
-
-            // Şablonu işle
             fields.forEach(f => {
                 if (f.type === 'phone') return makePhone(f);
+                if (f.type === 'select') return makeSelect(f);
+                if (f.type === 'textarea') return makeTextarea(f);
                 if (f.type === 'checkbox' && (f.id || f.label)) return makeSelectAll(f);
                 if (f.type === 'consents') return makeConsents(f);
                 return makeInput(f);
             });
 
-            // Tümünü işaretle bağla
+            // Tümünü işaretle
             const all = document.getElementById('allConsents');
             const group = fieldsWrap.querySelectorAll('.checkgroup input[type="checkbox"]');
             if (all && group.length) {
@@ -1362,14 +1793,44 @@
                     all.checked = [...group].every(x => x.checked);
                 }));
             }
+
+            // Ürün seçimi → dinamik alan + başlık güncelleme
+            const urunSelect = document.getElementById('field_urun');
+            if (urunSelect) {
+                const updateDynamic = () => {
+                    const v = urunSelect.value;
+                    upsertPlakaField(v === 'trafik' || v === 'kasko');
+                    upsertSaglikGroup(v === 'tamamlayici_saglik');
+                    upsertDaskGroup(v === 'dask');
+                };
+
+                const updateHeaderProduct = () => {
+                    const base = modal.dataset.serviceName || '';
+                    const val = urunSelect.value;
+                    const txt = urunSelect.options[urunSelect.selectedIndex]?.text || '';
+                    subEl.textContent = `Seçilen hizmet: ${base}${val ? ` (${txt})` : ''}`;
+                };
+
+                urunSelect.addEventListener('change', updateDynamic);
+                urunSelect.addEventListener('change', updateHeaderProduct);
+
+                // ilk yüklemede
+                updateDynamic();
+                updateHeaderProduct();
+            }
         }
 
-
+        // --- Modal kontrol ---
         function openModal() {
             modal.classList.add('is-open');
             modal.setAttribute('aria-hidden', 'false');
-            setTimeout(() => form.querySelector('input:not([type="hidden"])')?.focus(), 0);
+            // İlk odaklanabilir alan
+            setTimeout(() => {
+                const first = form.querySelector('input:not([type="hidden"]), select, textarea');
+                first?.focus();
+            }, 0);
         }
+
         function closeModal() {
             modal.classList.remove('is-open');
             modal.setAttribute('aria-hidden', 'true');
@@ -1384,6 +1845,9 @@
         });
     })();
 </script>
+
+
+
 
 
 <style>
@@ -1482,6 +1946,111 @@
   accent-color:#0d6efd; /* destekleyen tarayıcılarda mavi tik */
 }
 .checkline a{ color:#0d6efd; text-decoration:underline; }
+
+
+
+
+/* Metin alanları + select + textarea */
+.form-field input:not([type="checkbox"]):not([type="radio"]),
+.form-field select,
+.form-field textarea{
+  width:100%;
+  padding:10px 12px;
+  border-radius:10px;
+  border:1px solid #cfcfcf;
+  background:#fff;
+  color:#111;
+  outline:none;
+}
+.form-field select:focus,
+.form-field textarea:focus{
+  border-color:#5c8df6;
+  box-shadow:0 0 0 3px rgba(92,141,246,.15);
+}
+
+
+/* ===== Mobil uyum ve erişilebilirlik ekleri ===== */
+
+/* Modal içerik taşmasın, mobilde kayabilsin */
+.popup-dialog{
+  max-height: min(90vh, 720px);
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* iOS yakınlaşma bug'ını önlemek için: input/select/textarea font 16px */
+.form-field input:not([type="checkbox"]):not([type="radio"]),
+.form-field select,
+.form-field textarea{
+  font-size: 16px;
+  line-height: 1.25;
+}
+
+/* Küçük ekranlarda (<=480px) iyileştirmeler */
+@media (max-width: 480px){
+  .popup-dialog{
+    width: 94vw;
+    padding: 16px 14px 14px;
+    border-radius: 12px;
+  }
+
+  .popup-title{
+    font-size: 18px;
+    margin-top: 2px;
+  }
+  .popup-subtitle{
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+
+  .popup-close{
+    top: 6px;
+    right: 8px;
+    width: 40px;  /* daha büyük dokunma alanı */
+    height: 40px;
+    font-size: 22px;
+  }
+
+  .form-field{
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+  .form-field label{
+    font-size: 12.5px;
+  }
+
+  /* Telefon satırı dar ekranda dikey dizilsin */
+  .phone-row{
+    flex-direction: column;
+    gap: 6px;
+  }
+  .phone-prefix{
+    height: 40px;
+    justify-content: center;
+  }
+
+  /* Butonlar alta yığılsın ve tam genişlik olsun */
+  .popup-actions{
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .btn-primary,
+  .btn-ghost{
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+    font-weight: 700;
+  }
+}
+
+/* Güvenli alanlar (çentikli cihazlarda) – opsiyonel ama faydalı */
+@supports (padding: max(0px)){
+  .popup-dialog{
+    padding-bottom: max(14px, env(safe-area-inset-bottom));
+  }
+}
 
 
 </style>
