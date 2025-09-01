@@ -803,13 +803,7 @@
                 <span>@esiyokgrup.ikinciel</span>
             </a>
     
-            <!-- LinkedIn istersen bunun yorumunu açıp URL'ini koy -->
-            <!--
-        <a class="social in" href="LINKEDIN_URLIN" target="_blank" rel="noopener" aria-label="LinkedIn">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 110 3.5a2.5 2.5 0 014.98 0zM.5 8.5h4.9V24H.5zM8.5 8.5h4.7v2.1h.1c.7-1.3 2.4-2.7 4.9-2.7 5.3 0 6.3 3.5 6.3 8.1V24h-4.9v-6.9c0-1.6 0-3.7-2.3-3.7-2.3 0-2.6 1.8-2.6 3.6V24H8.5z"/></svg>
-          <span>LinkedIn</span>
-        </a>
-        -->
+      
         </div>
     </div>
 
@@ -1040,6 +1034,40 @@
   .contact-section .social-strip{ margin-top: 6px; }
 }
 
+/* === Sosyal şerit mobil hizalama düzeltmesi === */
+
+/* İkonu gerçekten 18x18 yap (genişlik-basis uyumsuzluğunu düzelt) */
+.contact-section .social svg{
+  width: 18px !important;
+  height: 18px !important;
+  flex: 0 0 18px !important;
+}
+
+/* Mobil düzen: şeridi tam genişlikte ortala, iç kapsülü merkezle */
+@media (max-width: 992px){
+  .contact-section .social-strip{
+    width: 100%;
+    max-width: 100%;
+    padding: 0 16px;         /* kenarlarda nefes */
+    margin-top: 6px !important;  /* desktop'taki -70px override */
+    display: flex;
+    justify-content: center;  /* ortala */
+  }
+
+  .contact-section .social-pill{
+    width: auto;
+    max-width: 100%;
+    margin: 0 auto;          /* kapsülü ortala */
+    justify-content: center; /* içindeki butonları ortala */
+    gap: 8px;
+  }
+
+  .contact-section .social{
+    justify-content: center;
+  }
+}
+
+
 
 
 
@@ -1053,7 +1081,7 @@
 
 <div id="whatsapp-chat">
     <a href="https://wa.me/905558961275" target="_blank" rel="noopener">
-        <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp" class="whatsapp-icon" />
+        <img src="assets/image/wp.png" alt="WhatsApp" class="whatsapp-icon" />
     </a>
     <div class="chat-text">Sizlere nasıl yardımcı olabiliriz?</div>
 </div>
@@ -1068,8 +1096,8 @@
     }
 
     .whatsapp-icon {
-        width: 60px;
-        height: 60px;
+        width: 70px;
+        height: 70px;
         border-radius: 50%;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         cursor: pointer;
@@ -1107,7 +1135,7 @@
 <!-- Teklif Al butonu kapsayıcıyla -->
 <div id="teklif-al-wrapper">
     <a id="teklif-al" href="#diğer" aria-label="Teklif Al">
-        <img src="assets/image/teklifal.png" alt="Teklif Al">
+        <img src="assets/image/SİGORTA.png" alt="Teklif Al">
     </a>
 </div>
 
@@ -1116,15 +1144,15 @@
     /* Kapsayıcı sabitleniyor */
 #teklif-al-wrapper{
   position: fixed;
-  right: 20px;
-  bottom: 20px;
+  right: -10px;
+  bottom: -10px;
   z-index: 9999;
 }
 
 /* Bağlantı resmi */
 #teklif-al img{
-  width: 100px;
-  height: 100px;
+  width: 170px;
+  height: 170px;
   object-fit: contain;
   cursor: pointer;
   user-select: none;
@@ -1153,12 +1181,26 @@ html{ scroll-behavior: smooth; }
 
 
 <script>
-    document.getElementById('teklif-al')?.addEventListener('click', function (e) {
-        const target = document.getElementById('diğer');
-        if (target) {
+    document.addEventListener('DOMContentLoaded', () => {
+        const btn = document.getElementById('teklif-al');
+        if (!btn) return;
+
+        btn.addEventListener('click', (e) => {
             e.preventDefault();
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+
+            // 1) Sigorta kartını tetikle
+            const sigortaEl = document.getElementById('sigorta')
+                || document.querySelector('.vehicle-card#sigorta');
+            if (sigortaEl) {
+                sigortaEl.click();
+            }
+
+            // 2) #diğer bölümüne kaydır
+            const target = document.getElementById('diğer') || document.getElementById('diger');
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
     });
 </script>
 
