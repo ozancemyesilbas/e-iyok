@@ -255,6 +255,13 @@ body.menu-open {
 
 
 
+
+
+
+
+
+
+
 /* ===== Banner (image-only) – clean ===== */
 .banner-container {
     position: relative;
@@ -278,11 +285,22 @@ body.menu-open {
     height: 100%;
 }
 
+/* <picture> da kutuyu tam doldursun */
+.slide picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
 .slide-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    /* Tüm alanı kapla (kırpma olabilir). Tam görünüm istersen: contain */
+    object-position: center;
     display: block;
+    user-select: none;
+    -webkit-user-drag: none;
 }
 
 /* Dots */
@@ -325,6 +343,7 @@ body.menu-open {
     cursor: pointer;
     transition: background-color .3s;
     z-index: 10;
+    /* link overlay'den yukarıda */
 }
 
 .arrow:hover {
@@ -339,7 +358,7 @@ body.menu-open {
     right: 20px;
 }
 
-/* (Opsiyonel) Ken Burns efekti yalnızca görsele */
+/* Ken Burns (opsiyonel) */
 @keyframes kenburns {
     from {
         transform: scale(1.06);
@@ -352,6 +371,13 @@ body.menu-open {
 
 .slide.is-active .slide-img {
     animation: kenburns 6s ease-out both;
+}
+
+/* Hareketi tercih etmeyen kullanıcılar için animasyonu kapat */
+@media (prefers-reduced-motion: reduce) {
+    .slide.is-active .slide-img {
+        animation: none !important;
+    }
 }
 
 /* ===== Responsive ===== */
@@ -402,18 +428,6 @@ html {
 }
 
 /* #id'lere yumuşak kaydırma (isteğe bağlı) */
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
