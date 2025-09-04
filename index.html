@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eşikyok Grup</title>
     <title>Eşikyok Grup</title>
-    <link rel="icon" href="assets/image/beyaz1.png" type="image/png">
+    <link rel="icon" href="assets/image/beyaz.png" type="image/png">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
@@ -1260,10 +1260,7 @@ html{ scroll-behavior: smooth; }
                 // En başa ad-soyad
                 { name: 'ad', label: 'Adınız Soyadınız *', type: 'text', placeholder: 'Ad Soyad', required: true },
 
-                {
-                    name: 'tckn', label: 'T.C. Kimlik Numarası *', type: 'text',
-                    placeholder: '11 haneli TCKN', required: true, pattern: '^\\d{11}$', maxlength: 11, inputmode: 'numeric'
-                },
+                // TCKN alanı kaldırıldı
                 { name: 'dogum', label: 'Doğum Tarihiniz *', type: 'date', required: true },
                 {
                     name: 'telefon', label: 'Telefon Numaranız *', type: 'phone',
@@ -1323,7 +1320,7 @@ html{ scroll-behavior: smooth; }
             ],
             sat: [
                 { name: 'ad', label: 'Ad', type: 'text', placeholder: 'Ad Soyad', required: true },
-                { name: 'tckn', label: 'TCKN', type: 'text', placeholder: '11 haneli TCKN', required: true, pattern: '^\\d{11}$', maxlength: 11 },
+                // TCKN alanı kaldırıldı
                 {
                     name: 'telefon', label: 'Telefon Numaranız *', type: 'phone',
                     placeholder: '5xxxxxxxxx', required: true, pattern: '^\\d{10}$', maxlength: 10
@@ -1362,9 +1359,9 @@ html{ scroll-behavior: smooth; }
                     ]
                 }
             ],
-           kiralama: [
+            kiralama: [
                 { name: 'ad', label: 'Ad', type: 'text', placeholder: 'Ad Soyad', required: true },
-                { name: 'tckn', label: 'TCKN', type: 'text', placeholder: '11 haneli TCKN', required: true, pattern: '^\\d{11}$', maxlength: 11 },
+                // TCKN alanı kaldırıldı
                 {
                     name: 'telefon', label: 'Telefon Numaranız *', type: 'phone',
                     placeholder: '5xxxxxxxxx', required: true, pattern: '^\\d{10}$', maxlength: 10
@@ -1406,7 +1403,7 @@ html{ scroll-behavior: smooth; }
 
             servis: [
                 { name: 'ad', label: 'Ad', type: 'text', placeholder: 'Ad Soyad', required: true },
-                { name: 'tckn', label: 'TCKN', type: 'text', placeholder: '11 haneli TCKN', required: true, pattern: '^\\d{11}$', maxlength: 11 },
+                // TCKN alanı kaldırıldı
                 {
                     name: 'telefon', label: 'Telefon Numaranız *', type: 'phone',
                     placeholder: '5xxxxxxxxx', required: true, pattern: '^\\d{10}$', maxlength: 10
@@ -1447,7 +1444,7 @@ html{ scroll-behavior: smooth; }
             ],
             rainwol: [
                 { name: 'ad', label: 'Ad', type: 'text', placeholder: 'Ad Soyad', required: true },
-                { name: 'tckn', label: 'TCKN', type: 'text', placeholder: '11 haneli TCKN', required: true, pattern: '^\\d{11}$', maxlength: 11 },
+                // TCKN alanı kaldırıldı
                 {
                     name: 'telefon', label: 'Telefon Numaranız *', type: 'phone',
                     placeholder: '5xxxxxxxxx', required: true, pattern: '^\\d{10}$', maxlength: 10
@@ -1489,7 +1486,7 @@ html{ scroll-behavior: smooth; }
 
             swm: [
                 { name: 'ad', label: 'Ad', type: 'text', placeholder: 'Ad Soyad', required: true },
-                { name: 'tckn', label: 'TCKN', type: 'text', placeholder: '11 haneli TCKN', required: true, pattern: '^\\d{11}$', maxlength: 11 },
+                // TCKN alanı kaldırıldı
                 {
                     name: 'telefon', label: 'Telefon Numaranız *', type: 'phone',
                     placeholder: '5xxxxxxxxx', required: true, pattern: '^\\d{10}$', maxlength: 10
@@ -1541,7 +1538,7 @@ html{ scroll-behavior: smooth; }
         const form = document.getElementById('dynamicForm');
         const fieldsWrap = document.getElementById('formFields');
 
-      // Kart + kutu tıklamaları (vehicle-card ve .box)
+        // Kart + kutu tıklamaları (vehicle-card ve .box)
         document.querySelectorAll('.vehicle-card, .box').forEach(el => {
             el.addEventListener('click', () => {
                 const rawId = el.id || 'sigorta';

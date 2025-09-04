@@ -49,14 +49,15 @@ body {
 .navbar-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 10px 20px;
+    padding: 5px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .navbar-logo img {
-    height: 65px;
+    margin-left: 10px;
+    height: 100px;
     transition: height .3s;
 }
 
