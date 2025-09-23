@@ -44,6 +44,10 @@ body {
     box-shadow: none;
     z-index: 1000;
     /* scroll rengi vs. yok */
+    height: 100px;
+        /* sabit yükseklik */
+        overflow: hidden;
+        /* logonun taşan kısmını gizle */
 }
 
 .navbar-container {
@@ -57,7 +61,7 @@ body {
 
 .navbar-logo img {
     margin-left: 10px;
-    height: 100px;
+    height: 113px;
     transition: height .3s;
 }
 
@@ -134,7 +138,7 @@ body {
     }
 
     .navbar-logo img {
-        height: 50px;
+        height: 90px;
     }
 
     /* Yan kayan menü */
